@@ -88,7 +88,9 @@ class HomePage extends Component {
     };
 
     onLocationChange = (suggestion) => {
-        this.setState({ location: { lat: suggestion.geometry.location.lat(), lng: suggestion.geometry.location.lat() } });
+        const location = { lat: suggestion.geometry.location.lat(), lng: suggestion.geometry.location.lat() };
+        this.setState({ location: location });
+        localStorage.setItem('location', JSON.stringify(location));
     };
 
     handleChange = name => event => {
