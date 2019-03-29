@@ -5,10 +5,11 @@ import pandas as pd
 import numpy as np
 import ast
 
+
 path_in = r'C:\Dev\sports-discovery-app\ai-scripts\fake_data.csv'
 df = pd.read_csv(path_in)
 
-df['sports-array'] = df['sports'].apply(lambda x: ast.literal_eval(x))
+df['sports-array'] = df['sports'].apply(lambda x: list(map(str, list(map(int, ast.literal_eval(x))))))
 df['age-scaled'] = df['age'] / 120
 df['sex-scaled'] = np.where(df['sex'] == 'm', 0, 1)
 df['location_x-sacled'] = (df['location_x'] + 90) / 180
