@@ -52,12 +52,13 @@ const styles = theme => ({
         zIndex: 1
     },
     overlayTitle: {
-        fontSize: 52,
+        fontSize: 62,
         fontWeight: 700,
-        lineHeight: 1
+        lineHeight: 1,
+        marginBottom: 10
     },
     overlayDesc: {
-
+        fontSize: 22,
     },
     rightSideSection: {
         flex: 1,
@@ -85,8 +86,8 @@ class HomePage extends Component {
         dislikedSports: []
     };
 
-    onLocationChange = (suggestion, suggestionValue) => {
-        this.setState({ location: { lat: 42.5465497, lng: -83.027849 } });
+    onLocationChange = (suggestion) => {
+        this.setState({ location: { lat: suggestion.geometry.location.lat(), lng: suggestion.geometry.location.lat() } });
     };
 
     handleChange = name => event => {
