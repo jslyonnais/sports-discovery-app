@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
-import Icon from '@material-ui/core/Icon';
-import { Link } from 'react-router-dom';
+import GoogleMapReact from 'google-map-react';
+import LocationIcon from '@material-ui/icons/LocationOn';
 import Typography from '@material-ui/core/Typography';
 import { sportsData } from './sportsData.js'
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -122,7 +122,7 @@ const styles = theme => ({
     },
 });
 
-export class SportPage extends Component {
+export class SportLocationPage extends Component {
 
     render() {
 
@@ -132,27 +132,23 @@ export class SportPage extends Component {
         return (
             <>
                 <div className={classes.leftSideSection}>
-                    <img className={classes.overlayImage} src={sport.image}/>
-                    <div className={classes.overlayContainer}>
-                        <h1 className={classes.overlayTitle}>{sport.title}</h1>
-                        <div className={classes.overlayDesc}>Based on your the sports you've entered, we've supposed you'll like to play Tennis.Praesent sed placerat nisi.</div>
+                    <div style={{ height: '100vh', width: '100%' }}>
+                        <GoogleMapReact
+                        bootstrapURLKeys={{ key: "AIzaSyADZ6SKjElEyIdZ7og8PzLEBZ6zLOAtPz8" }}
+                        defaultCenter={{ lat: 59.95, lng: 30.33}}
+                        defaultZoom={8}
+                        >
+                        <LocationIcon
+                            fontSize="large"
+                            color="secondary"
+                            lat={59.955413}
+                            lng={30.337844}
+                            text="You are here"
+                        />
+                        </GoogleMapReact>
                     </div>
                 </div>
                 <div className={classes.rightSideSection}>
-                    <div className={classes.controls}>
-                        <span className={classes.arrowPrev}>
-                            <Icon className={classes.icon}>
-                                arrow_back_ios
-                            </Icon>
-                            Prev
-                        </span>
-                        <span className={classes.arrowNext}>
-                            Next
-                            <Icon className={classes.icon}>
-                                arrow_forward_ios
-                            </Icon>
-                        </span>
-                    </div>
                     <div className={classes.paper}>
                         <Typography 
                             component="h2"
@@ -163,42 +159,6 @@ export class SportPage extends Component {
                         >
                             Try {sport.title}
                         </Typography>
-                        <Typography variant="body1" gutterBottom>
-                            {sport.description}
-                        </Typography>
-
-                        {(sport.gear)?
-                        <>
-                            <span className={classes.bump}>
-                                <Typography 
-                                    component="h2"
-                                    variant="h5" 
-                                    align="center"
-                                    className={classes.title}
-                                    gutterBottom
-                                >
-                                    Suggested gear
-                                </Typography>
-                            </span>
-                            <div className={classes.gearList}>
-                                {sport.gear.map(x => {
-                                    return (
-                                        <div key={x.title} className={classes.gear}>
-                                            <img className={classes.gearImage} src={x.image} />
-                                            <span className={classes.gearTitle}>{x.title}</span>
-                                        </div>
-                                    )
-                                })}
-                            </div>
-                        </>
-                        : null }
-
-                        <div className={classes.location}>
-                            <Icon className={classes.icon}>
-                                location_on
-                            </Icon>
-                            <Link className={classes.link} to={`/sports/${params.sportId}/location`} >Discover where to play</Link>
-                        </div>
                     </div>
                 </div>
             </>
@@ -206,4 +166,4 @@ export class SportPage extends Component {
     }
 }
 
-export default withStyles(styles)(SportPage);
+export default withStyles(styles)(SportLocationPage);
