@@ -6,7 +6,8 @@ import numpy as np
 import pandas as pd
 from keras.models import load_model
 
-model = load_model(str(os.getcwd()) + "\model-1553883239.315829.h5")
+dir_path = os.path.dirname(os.path.realpath(__file__))
+model = load_model(dir_path+'/../model-1553883239.315829.h5')
 model._make_predict_function()
 sportIds = ['593', '175', '347', '270', '412', '710', '339', '81', '87', '78',
        '134', '224', '996', '74', '999', '368', '141', '858', '67', '93', '89',
