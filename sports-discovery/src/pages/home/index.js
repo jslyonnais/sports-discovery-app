@@ -95,7 +95,8 @@ class HomePage extends Component {
     };
 
     onLocationChange = (suggestion) => {
-        const location = { lat: suggestion.geometry.location.lat(), lng: suggestion.geometry.location.lat() };
+        console.log("onLocationChange");
+        const location = { lat: suggestion.geometry.location.lat(), lng: suggestion.geometry.location.lng() };
         this.setState({ location: location });
         localStorage.setItem('location', JSON.stringify(location));
     };
@@ -149,7 +150,7 @@ class HomePage extends Component {
                     <img className={classes.overlayImage} src="./home-photo-1.jpg"/>
                     <div className={classes.overlayContainer}>
                         <h1 className={classes.overlayTitle}>Wanna be sporty?</h1>
-                        <div className={classes.overlayDesc}>Tired of always doing the same sport, or simply wanna start a new one? Let's Sportify give you suggestions about the new sports that you should try based on your current sport preferences.</div>
+                        <div className={classes.overlayDesc}>Tired of always doing the same sport, or simply wanna start a new one? Lets Sportify's AI suggest you new sports that you should try, based on your current sport preferences.</div>
                     </div>
                 </div>
                 <div className={classes.rightSideSection}>
