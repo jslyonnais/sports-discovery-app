@@ -68,6 +68,13 @@ const styles = theme => ({
         justifyContent: 'center',
         alignItems: 'center'
     },
+    button: {
+        width: '100%',
+        backgroundColor: '#48BBFF',
+        '&:hover': {
+            backgroundColor: '#3399FF'
+        }
+    },
     fabProgress: {
         height:"28px",
         width:"28px",
