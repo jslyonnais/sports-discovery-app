@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 
-import { Footer } from '../../components/footer';
+import Button from '@material-ui/core/Button';
 import FormControl from '@material-ui/core/FormControl';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormLabel from '@material-ui/core/FormLabel';
 import { GMapsAutocomplete } from '../../components/place-autocomplete';
 import Grid from '@material-ui/core/Grid';
+import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
-import Radio from '@material-ui/core/Radio';
-import RadioGroup from '@material-ui/core/RadioGroup';
+import MenuItem from '@material-ui/core/MenuItem';
+import Select from '@material-ui/core/Select';
 import { SportsSelector } from '../../components/sports-selector';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
@@ -16,45 +16,34 @@ import withStyles from '@material-ui/core/styles/withStyles';
 
 const styles = theme => ({
     paper: {
-        padding: theme.spacing.unit * 3,
-        [theme.breakpoints.up(600 + theme.spacing.unit * 3 * 2)]: {
-            marginTop: theme.spacing.unit * 6,
-            marginBottom: theme.spacing.unit * 6,
-            padding: theme.spacing.unit * 3
-        }
+        marginTop: theme.spacing.unit * 6,
+        marginBottom: theme.spacing.unit * 6,
+        padding: theme.spacing.unit * 10
+    },
+    title: {
+        display: 'block',
+        color: '#4f4f4f',
+        fontWeight: 700,
+        marginBottom: theme.spacing.unit * 6
+    },
+    fullWidth: {
+        width: '100%'
+    },
+    button: {
+        display: 'block',
+        width: '100%',
+        color: '#fff',
+        backgroundColor: '#48bbff'
     },
     leftSideSection: {
         flex: 1,
-        position: 'relative',
         display: 'flex',
-        flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        color: '#fff',
-        backgroundColor: '#48bbff',
-        overflow: 'hidden'
-    },
-    overlayImage: {
-        position: 'absolute',
-        opacity: 0.2,
-        height: '100%'
-    },
-    overlayContainer: {
-        width: '80%',
-        textAlign: 'center',
-        zIndex: 1
-    },
-    overlayTitle: {
-        fontSize: 52,
-        fontWeight: 700,
-        lineHeight: 1.5
-    },
-    overlayDesc: {
-
+        backgroundColor: '#48bbff'
     },
     rightSideSection: {
         flex: 1,
-        position: 'relative',
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center'
@@ -63,10 +52,9 @@ const styles = theme => ({
 
 class HomePage extends Component {
     state = {
-        gender: 'female',
+        gender: '',
         location: { lat: 0, lng: 0 },
-        firstName: '',
-        lastName: '',
+        fullName: '',
         age: 12
     };
 
@@ -82,83 +70,68 @@ class HomePage extends Component {
         const { classes } = this.props;
 
         return (
-        <>
-            <div className={classes.leftSideSection}>
-            <img className={classes.overlayImage} src="https://picsum.photos/1920/1080"/>
-            <div className={classes.overlayContainer}>
-                <h1 className={classes.overlayTitle}>Title Ipsum</h1>
-                <div className={classes.overlayDesc}>Based on your the sports you've entered, we've supposed you'll like to play Tennis.Praesent sed placerat nisi.</div>
-            </div>
-
-            <Footer />
-            </div>
-        <div className={classes.rightSideSection}>
+            <>
+                <div className={classes.leftSideSection}>
+                    ...
+                </div>
+                <div className={classes.rightSideSection}>
+                <div>
                 <div className={classes.paper}>
-                    <Typography component="h1" variant="h4" align="center">
-                        Profile
+                    <Typography 
+                        component="h2" 
+                        variant="h5" 
+                        align="center"
+                        className={classes.title}
+                    >
+                        Sign Up to discover new sports
                     </Typography>
                     <Grid container spacing={24}>
-                        <Grid item xs={12}>
+                        <Grid item xs={12} lg={6}>
                             <TextField
                                 required
-                                id="firstName"
-                                name="firstName"
-                                label="First name"
+                                id="fullName"
+                                name="fullName"
+                                label="Name"
                                 fullWidth
                                 autoComplete="fname"
-                                value={this.state.firstName}
-                                onChange={this.handleChange('firstName')}
+                                value={this.state.fullName}
+                                onChange={this.handleChange('fullName')}
                             />
                         </Grid>
-                        <Grid item xs={12}>
-                            <TextField
-                                required
-                                id="lastName"
-                                name="lastName"
-                                label="Last name"
-                                fullWidth
-                                autoComplete="lname"
-                                value={this.state.lastName}
-                                onChange={this.handleChange('lastName')}
-                            />
-                        </Grid>
-
-                        <Grid item xs={12}>
+                        <Grid item xs={12} lg={2}>
                             <TextField
                                 required
                                 id="age"
                                 name="age"
                                 label="Age"
                                 value={this.state.age}
+                                className={classes.fullWidth}
                                 onChange={this.handleChange('age')}
                                 type="number"
                             />
                         </Grid>
-                        <Grid item xs={12}>
+                        <Grid item xs={12} lg={4}>
                             <FormControl
                                 component="fieldset"
-                                className={classes.formControl}
+                                className={classes.fullWidth}
                             >
                                 <FormLabel component="legend">Gender</FormLabel>
-                                <RadioGroup
-                                    aria-label="Gender"
-                                    name="gender"
-                                    className={classes.group}
+                                <Select
                                     value={this.state.gender}
                                     onChange={this.handleChange('gender')}
+                                    input={<Input name="gender" id="gender" />}
                                 >
-                                    <FormControlLabel
-                                        value="female"
-                                        control={<Radio />}
-                                        label="Female"
-                                    />
-                                    <FormControlLabel
-                                        value="male"
-                                        control={<Radio />}
-                                        label="Male"
-                                    />
-                                </RadioGroup>
+                                    <MenuItem value={'female'}>Female</MenuItem>
+                                    <MenuItem value={'male'}>Male</MenuItem>
+                                    <MenuItem value={'other'}>Other</MenuItem>
+                                </Select>
                             </FormControl>
+                        </Grid>
+                        <Grid item xs={12} lg={6}>
+                            <SportsSelector label="Sports you like" />
+                        </Grid>
+                        <Grid item xs={12} lg={6}>
+                            <SportsSelector label="Sports you dont like" />
                         </Grid>
                         <Grid item xs={12}>
                             <InputLabel htmlFor="location">
@@ -172,15 +145,19 @@ class HomePage extends Component {
                             />
                         </Grid>
                         <Grid item xs={12}>
-                            <SportsSelector label="Sports you like" />
-                        </Grid>
-                        <Grid item xs={12}>
-                            <SportsSelector label="Sports you dont like" />
+                            <Button 
+                                variant="contained" 
+                                color="primary"
+                                className={classes.button}>
+                                Sign Up
+                            </Button>
                         </Grid>
                     </Grid>
                 </div>
             </div>
+                </div>
             </>
+            
         );
     }
 }
