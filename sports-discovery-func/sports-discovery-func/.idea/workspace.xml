@@ -23,11 +23,10 @@
       <file leaf-file-name="fake_data.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/../../ai-scripts/fake_data.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="218">
-              <caret line="237" column="27" lean-forward="true" selection-start-line="237" selection-start-column="27" selection-end-line="237" selection-end-column="27" />
+            <state relative-caret-position="180">
+              <caret line="175" column="57" selection-start-line="175" selection-start-column="57" selection-end-line="175" selection-end-column="57" />
               <folding>
                 <element signature="e#0#13#0" expanded="true" />
-                <element signature="e#193#2727#0" />
               </folding>
             </state>
           </provider>
@@ -72,9 +71,14 @@
   <component name="FindInProjectRecents">
     <findStrings>
       <find>0.5</find>
+      <find>Name</find>
+      <find>name</find>
+      <find>id</find>
+      <find>&quot;name</find>
     </findStrings>
     <replaceStrings>
       <replace>0.3</replace>
+      <replace>name</replace>
     </replaceStrings>
   </component>
   <component name="IdeDocumentHistory">
@@ -265,11 +269,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/../../ai-scripts/fake_data.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="218">
-          <caret line="237" column="27" lean-forward="true" selection-start-line="237" selection-start-column="27" selection-end-line="237" selection-end-column="27" />
+        <state relative-caret-position="180">
+          <caret line="175" column="57" selection-start-line="175" selection-start-column="57" selection-end-line="175" selection-end-column="57" />
           <folding>
             <element signature="e#0#13#0" expanded="true" />
-            <element signature="e#193#2727#0" />
           </folding>
         </state>
       </provider>
