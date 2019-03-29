@@ -6,24 +6,33 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import { Link as RouterLink } from 'react-router-dom';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import styles from './header-nav.module.css';
+// import styles from './header-nav.module.css';
+import { withStyles } from '@material-ui/core/styles';
+
+const styles = theme => ({
+    appBar: {
+        position: 'absolute'
+    }
+});
 
 class HeaderNav extends Component {
     render() {
+        const { classes } = this.props;
+
         return (
             <>
                 <CssBaseline />
                 <AppBar
                     position="static"
                     color="default"
-                    className={styles.appBar}
+                    className={classes.appBar}
                 >
                     <Toolbar>
                         <Typography
                             variant="h6"
                             color="inherit"
                             noWrap
-                            className={styles.toolbarTitle}
+                            className={classes.toolbarTitle}
                         >
                             Sports Discovery
                         </Typography>
@@ -43,4 +52,4 @@ class HeaderNav extends Component {
     }
 }
 
-export default HeaderNav;
+export default withStyles(styles)(HeaderNav);
