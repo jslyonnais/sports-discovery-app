@@ -20,14 +20,14 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="fake_data.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="fake_data.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/../../ai-scripts/fake_data.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="262">
-              <caret line="174" column="8" selection-start-line="174" selection-start-column="8" selection-end-line="174" selection-end-column="8" />
+            <state relative-caret-position="218">
+              <caret line="237" column="27" lean-forward="true" selection-start-line="237" selection-start-column="27" selection-end-line="237" selection-end-column="27" />
               <folding>
                 <element signature="e#0#13#0" expanded="true" />
-                <element signature="e#193#2466#0" />
+                <element signature="e#193#2727#0" />
               </folding>
             </state>
           </provider>
@@ -42,10 +42,12 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="fake_data.csv" pinned="false" current-in-tab="false">
+      <file leaf-file-name="fake_data.csv" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/../../ai-scripts/fake_data.csv">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-459" />
+            <state relative-caret-position="442">
+              <caret line="26" column="44" lean-forward="true" selection-start-line="26" selection-start-column="44" selection-end-line="26" selection-end-column="44" />
+            </state>
           </provider>
         </entry>
       </file>
@@ -214,8 +216,27 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="5" />
+      <option name="time" value="12" />
     </breakpoint-manager>
+    <watches-manager>
+      <configuration name="PythonConfigurationType">
+        <watch expression="random.randint(lower_bound, upper_bound)" language="Python" />
+      </configuration>
+    </watches-manager>
+  </component>
+  <component name="debuggerHistoryManager">
+    <expressions id="watch">
+      <expression>
+        <expression-string>random.randint(lower_bound, upper_bound)</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>upper_bound</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+    </expressions>
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/Compute/__init__.py">
@@ -242,19 +263,21 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../../ai-scripts/fake_data.csv">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-459" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../../ai-scripts/fake_data.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="262">
-          <caret line="174" column="8" selection-start-line="174" selection-start-column="8" selection-end-line="174" selection-end-column="8" />
+        <state relative-caret-position="218">
+          <caret line="237" column="27" lean-forward="true" selection-start-line="237" selection-start-column="27" selection-end-line="237" selection-end-column="27" />
           <folding>
             <element signature="e#0#13#0" expanded="true" />
-            <element signature="e#193#2466#0" />
+            <element signature="e#193#2727#0" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../ai-scripts/fake_data.csv">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="442">
+          <caret line="26" column="44" lean-forward="true" selection-start-line="26" selection-start-column="44" selection-end-line="26" selection-end-column="44" />
         </state>
       </provider>
     </entry>
