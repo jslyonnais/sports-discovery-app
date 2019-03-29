@@ -169,7 +169,6 @@ export class SportLocationPage extends Component {
 
     render() {
         const { match: { params }, classes } = this.props;
-        const sport = sportsData.find(sport=>sport.id === parseInt(params.sportId));
         const location = JSON.parse(localStorage.getItem('location'));
 
         const locationMarker = <LocationIcon fontSize="large" color="primary" lat={location.lat} lng={location.lng} text="You are here" />
@@ -182,7 +181,7 @@ export class SportLocationPage extends Component {
         return (
             <>
                 <div className={classes.leftSideSection}>
-                    <div style={{ height: '100vh', width: '100%', position: 'absolute', top: 0 }}>
+                    <div style={{ height: '100%', width: '100%', position: 'absolute', top: 0 }}>
                         <GoogleMapReact
                             bootstrapURLKeys={{ key: "AIzaSyADZ6SKjElEyIdZ7og8PzLEBZ6zLOAtPz8" }}
                             defaultCenter={location}
