@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import Button from '@material-ui/core/Button';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 import { GMapsAutocomplete } from '../../components/place-autocomplete';
@@ -64,7 +65,13 @@ const styles = theme => ({
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center'
-    }
+    },
+    fabProgress: {
+        height:"28px",
+        width:"28px",
+        position: "absolute",
+        margin: "0 10px"
+      },
 });
 
 class HomePage extends Component {
@@ -72,7 +79,8 @@ class HomePage extends Component {
         gender: '',
         location: { lat: 0, lng: 0 },
         fullName: '',
-        age: 12
+        age: 12,
+        loading: false
     };
 
     onLocationChange = (suggestion, suggestionValue) => {
@@ -83,9 +91,37 @@ class HomePage extends Component {
         this.setState({ [name]: event.target.value });
     };
 
+    handleSignUp = () => {
+        this.setState({ loading: true });
+        
+        fetch("https://sportsdiscovery.azurewebsites.net/api/compute?name=hugo&code=G7nO2EgrwhZtHvInE6ajgiQj8ZHSk0PjHRREQy9I39afZexyteqX1g==", {
+            method: "POST",
+            mode:"no-cors",
+            cache: "no-cache",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(
+                {
+                    gender: this.state.gender,
+                    location: this.state.location,
+                    age: this.state.age,
+                }
+            ),
+        })
+        .then(
+          (result) => {
+            this.setState({
+                loading: false
+            });
+            const sportId = 270;
+            this.props.history.push(`/sports/${sportId}`);
+          })
+    };
+
     render() {
         const { classes } = this.props;
-
+        const { loading } = this.state;
         console.log(this.props)
 
         return (
@@ -146,7 +182,6 @@ class HomePage extends Component {
                                 >
                                     <MenuItem value={'female'}>Female</MenuItem>
                                     <MenuItem value={'male'}>Male</MenuItem>
-                                    <MenuItem value={'other'}>Other</MenuItem>
                                 </Select>
                             </FormControl>
                         </Grid>
@@ -167,13 +202,18 @@ class HomePage extends Component {
                                 onSuggestionSelected={this.onLocationChange}
                             />
                         </Grid>
+
                         <Grid item xs={12}>
                             <Button 
                                 variant="contained" 
                                 color="primary"
-                                className={classes.button}>
+                                className={classes.button}
+                                onClick={this.handleSignUp}
+                                disabled={loading}
+                                >
                                 Sign Up
                             </Button>
+                            {loading && <CircularProgress size={28} className={classes.fabProgress} />}
                         </Grid>
                     </Grid>
                     </div>
