@@ -58,7 +58,8 @@ const styles = theme => ({
         marginBottom: 10
     },
     overlayDesc: {
-        fontSize: 22,
+        fontSize: 20,
+        lineHeight: 1.25
     },
     rightSideSection: {
         flex: 1,
