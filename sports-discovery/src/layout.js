@@ -10,6 +10,15 @@ const styles = theme => ({
         justifyContent: 'center',
         width: '100%',
         minHeight: '100vh'
+    },
+    button: {
+        display: 'block',
+        width: '100%',
+        color: '#fff',
+        backgroundColor: '#48bbff',
+        '&:hover': {
+            backgroundColor: '#3399ff'
+        }
     }
 });
 

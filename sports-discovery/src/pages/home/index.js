@@ -29,12 +29,7 @@ const styles = theme => ({
     fullWidth: {
         width: '100%'
     },
-    button: {
-        display: 'block',
-        width: '100%',
-        color: '#fff',
-        backgroundColor: '#48bbff'
-    },
+    
     leftSideSection: {
         flex: 1,
         position: 'relative',
@@ -91,6 +86,8 @@ class HomePage extends Component {
 
     render() {
         const { classes } = this.props;
+
+        console.log(this.props)
 
         return (
             <>
