@@ -54,7 +54,7 @@ const styles = theme => ({
     overlayTitle: {
         fontSize: 52,
         fontWeight: 700,
-        lineHeight: 1.5
+        lineHeight: 1
     },
     overlayDesc: {
 
@@ -135,10 +135,10 @@ class HomePage extends Component {
         return (
             <>
                 <div className={classes.leftSideSection}>
-                    <img className={classes.overlayImage} src="https://picsum.photos/1920/1080"/>
+                    <img className={classes.overlayImage} src="./home-photo-1.jpg"/>
                     <div className={classes.overlayContainer}>
-                        <h1 className={classes.overlayTitle}>Title Ipsum</h1>
-                        <div className={classes.overlayDesc}>Based on your the sports you've entered, we've supposed you'll like to play Tennis.Praesent sed placerat nisi.</div>
+                        <h1 className={classes.overlayTitle}>Wanna be sporty?</h1>
+                        <div className={classes.overlayDesc}>Tired of always doing the same sport, or simply wanna start a new one? Let's Sportify give you suggestions about the new sports that you should try based on your current sport preferences.</div>
                     </div>
                 </div>
                 <div className={classes.rightSideSection}>

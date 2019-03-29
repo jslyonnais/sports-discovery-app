@@ -41,7 +41,7 @@ const styles = theme => ({
     overlayTitle: {
         fontSize: 52,
         fontWeight: 700,
-        lineHeight: 1.5,
+        lineHeight: 1,
         textTransform: 'capitalize'
     },
     overlayDesc: {
@@ -134,7 +134,7 @@ export class SportPage extends Component {
                     <img className={classes.overlayImage} src={sport.image}/>
                     <div className={classes.overlayContainer}>
                         <h1 className={classes.overlayTitle}>{sport.title}</h1>
-                        <div className={classes.overlayDesc}>Based on your the sports you've entered, we've supposed you'll like to play Tennis.Praesent sed placerat nisi.</div>
+                        <div className={classes.overlayDesc}>Based on your the sports you've entered, <br/>we've supposed you'll like to play {sport.title}.</div>
                     </div>
                 </div>
                 <div className={classes.rightSideSection}>
