@@ -2,10 +2,8 @@ import React, { Component } from 'react';
 
 import { Link as RouterLink } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
 
 const styles = theme => ({
-<<<<<<< HEAD
     header: {
         position: 'fixed',
         top: theme.spacing.unit * 2,
@@ -14,15 +12,6 @@ const styles = theme => ({
     },
     logo: {
         width: 140
-=======
-    appBar: {
-        position: 'absolute'
-    },
-    toolBar: {
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "space-between"
->>>>>>> 3ff972dedd80109f69144588d2c98c0fd46f21bd
     }
 });
 
@@ -32,7 +21,6 @@ class HeaderNav extends Component {
 
         return (
             <>
-<<<<<<< HEAD
                 <div className={classes.header}>
                     <RouterLink to="/">
                         <img 
@@ -41,36 +29,6 @@ class HeaderNav extends Component {
                         />
                     </RouterLink>
                 </div>
-=======
-                <CssBaseline />
-                <AppBar
-                    position="static"
-                    color="default"
-                    className={classes.appBar}
-                >
-                    <Toolbar classes={{ root: classes.toolBar }}>
-                        <Typography
-                            variant="h6"
-                            color="inherit"
-                            noWrap
-                            className={classes.toolbarTitle}
-                        >
-                            Sportify
-                        </Typography>
-                        <div>
-                            <Button component={RouterLink} to="/">
-                                Home
-                            </Button>
-                            <Button component={RouterLink} to="/about">
-                                About
-                            </Button>
-                            <Button color="primary" variant="outlined">
-                                Login
-                            </Button>
-                        </div>
-                    </Toolbar>
-                </AppBar>
->>>>>>> 3ff972dedd80109f69144588d2c98c0fd46f21bd
             </>
         );
     }
