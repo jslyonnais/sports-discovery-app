@@ -1,9 +1,15 @@
 import React, { Component } from 'react';
 
-import Checkbox from '@material-ui/core/Checkbox';
+import FormControl from '@material-ui/core/FormControl';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormLabel from '@material-ui/core/FormLabel';
+import { GMapsAutocomplete } from '../../components/place-autocomplete';
 import Grid from '@material-ui/core/Grid';
+import InputLabel from '@material-ui/core/InputLabel';
 import Paper from '@material-ui/core/Paper';
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import { SportsSelector } from '../../components/sports-selector';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -22,18 +28,33 @@ const styles = theme => ({
 });
 
 class HomePage extends Component {
+    state = {
+        gender: 'female',
+        location: { lat: 0, lng: 0 },
+        firstName: '',
+        lastName: '',
+        age: 12
+    };
+
+    onLocationChange = (suggestion, suggestionValue) => {
+        this.setState({ location: { lat: 42.5465497, lng: -83.027849 } });
+    };
+
+    handleChange = name => event => {
+        this.setState({ [name]: event.target.value });
+    };
+
     render() {
         const { classes } = this.props;
 
         return (
             <div>
-                <h1>Home</h1>
                 <Paper className={classes.paper}>
                     <Typography component="h1" variant="h4" align="center">
                         Profile
                     </Typography>
                     <Grid container spacing={24}>
-                        <Grid item xs={12} sm={6}>
+                        <Grid item xs={12}>
                             <TextField
                                 required
                                 id="firstName"
@@ -41,9 +62,11 @@ class HomePage extends Component {
                                 label="First name"
                                 fullWidth
                                 autoComplete="fname"
+                                value={this.state.firstName}
+                                onChange={this.handleChange('firstName')}
                             />
                         </Grid>
-                        <Grid item xs={12} sm={6}>
+                        <Grid item xs={12}>
                             <TextField
                                 required
                                 id="lastName"
@@ -51,76 +74,64 @@ class HomePage extends Component {
                                 label="Last name"
                                 fullWidth
                                 autoComplete="lname"
+                                value={this.state.lastName}
+                                onChange={this.handleChange('lastName')}
                             />
                         </Grid>
+
                         <Grid item xs={12}>
                             <TextField
                                 required
-                                id="address1"
-                                name="address1"
-                                label="Address line 1"
-                                fullWidth
-                                autoComplete="billing address-line1"
+                                id="age"
+                                name="age"
+                                label="Age"
+                                value={this.state.age}
+                                onChange={this.handleChange('age')}
+                                type="number"
                             />
                         </Grid>
                         <Grid item xs={12}>
-                            <TextField
-                                id="address2"
-                                name="address2"
-                                label="Address line 2"
-                                fullWidth
-                                autoComplete="billing address-line2"
-                            />
-                        </Grid>
-                        <Grid item xs={12} sm={6}>
-                            <TextField
-                                required
-                                id="city"
-                                name="city"
-                                label="City"
-                                fullWidth
-                                autoComplete="billing address-level2"
-                            />
-                        </Grid>
-                        <Grid item xs={12} sm={6}>
-                            <TextField
-                                id="state"
-                                name="state"
-                                label="State/Province/Region"
-                                fullWidth
-                            />
-                        </Grid>
-                        <Grid item xs={12} sm={6}>
-                            <TextField
-                                required
-                                id="zip"
-                                name="zip"
-                                label="Zip / Postal code"
-                                fullWidth
-                                autoComplete="billing postal-code"
-                            />
-                        </Grid>
-                        <Grid item xs={12} sm={6}>
-                            <TextField
-                                required
-                                id="country"
-                                name="country"
-                                label="Country"
-                                fullWidth
-                                autoComplete="billing country"
-                            />
-                        </Grid>
-                        <Grid item xs={12}>
-                            <FormControlLabel
-                                control={
-                                    <Checkbox
-                                        color="secondary"
-                                        name="saveAddress"
-                                        value="yes"
+                            <FormControl
+                                component="fieldset"
+                                className={classes.formControl}
+                            >
+                                <FormLabel component="legend">Gender</FormLabel>
+                                <RadioGroup
+                                    aria-label="Gender"
+                                    name="gender"
+                                    className={classes.group}
+                                    value={this.state.gender}
+                                    onChange={this.handleChange('gender')}
+                                >
+                                    <FormControlLabel
+                                        value="female"
+                                        control={<Radio />}
+                                        label="Female"
                                     />
-                                }
-                                label="Use this address for payment details"
+                                    <FormControlLabel
+                                        value="male"
+                                        control={<Radio />}
+                                        label="Male"
+                                    />
+                                </RadioGroup>
+                            </FormControl>
+                        </Grid>
+                        <Grid item xs={12}>
+                            <InputLabel htmlFor="location">
+                                Location *
+                            </InputLabel>
+                            <GMapsAutocomplete
+                                id="location"
+                                name="location"
+                                placeholder=""
+                                onSuggestionSelected={this.onLocationChange}
                             />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <SportsSelector label="Sports you like" />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <SportsSelector label="Sports you dont like" />
                         </Grid>
                     </Grid>
                 </Paper>
