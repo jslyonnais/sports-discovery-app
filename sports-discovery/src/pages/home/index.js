@@ -112,7 +112,7 @@ class HomePage extends Component {
     handleSignUp = () => {
         this.setState({ loading: true });
         
-        fetch("https://sportsdiscovery.azurewebsites.net/api/compute?name=hugo&code=G7nO2EgrwhZtHvInE6ajgiQj8ZHSk0PjHRREQy9I39afZexyteqX1g==", {
+        fetch("https://sportsdiscovery.azurewebsites.net/api/Compute?code=1jBYduutNJHG/wafTLX7J9H7Hx3etlVVlAY4BpuT21ESw1btCwkkGg==", {
             method: "POST",
             mode:"no-cors",
             cache: "no-cache",
@@ -124,17 +124,17 @@ class HomePage extends Component {
                     gender: this.state.gender,
                     location: this.state.location,
                     age: this.state.age,
-                    likedsports: this.state.likedSports.map(sport=>sport.value),
-                    dislikedsports: this.state.dislikedSports.map(sport=>sport.value)
+                    likedsports: this.state.likedSports.map(sport=>sport.value)
                 }
             ),
         })
+        .then(result => result.json())
         .then(
           (result) => {
             this.setState({
                 loading: false
             });
-            const sportId = 270;
+            const sportId = result;
             this.props.history.push(`/sports/${sportId}`);
           })
     };
