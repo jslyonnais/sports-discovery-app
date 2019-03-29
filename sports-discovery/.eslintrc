@@ -1,0 +1,29 @@
+{
+    "extends": [
+        "standard",
+        "plugin:react/recommended",
+        "prettier",
+        "prettier/react"
+    ],
+    "plugins": ["prettier"],
+    "rules": {
+        "react/prop-types": 0,
+        "no-underscore-dangle": 0,
+        "import/newline-after-import": "error",
+        "prettier/prettier": "error"
+    },
+    "globals": {
+        "window": true,
+        "document": true,
+        "localStorage": true,
+        "FormData": true,
+        "FileReader": true,
+        "Blob": true,
+        "navigator": true
+    },
+    "env": {
+        "browser": true,
+        "jest": true
+    },
+    "parser": "babel-eslint"
+}

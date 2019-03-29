@@ -1,0 +1,7 @@
+.appBar {
+    position: 'relative';
+}
+
+.toolbarTitle {
+    flex: 1;
+}
