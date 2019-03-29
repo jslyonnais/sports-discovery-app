@@ -9,6 +9,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import Paper from '@material-ui/core/Paper';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
+import { SportsSelector } from '../../components/sports-selector';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -29,15 +30,18 @@ const styles = theme => ({
 class HomePage extends Component {
     state = {
         gender: 'female',
-        location: { lat: 0, lng: 0 }
-    };
-
-    handleGenderChange = event => {
-        this.setState({ gender: event.target.value });
+        location: { lat: 0, lng: 0 },
+        firstName: '',
+        lastName: '',
+        age: 12
     };
 
     onLocationChange = (suggestion, suggestionValue) => {
         this.setState({ location: { lat: 42.5465497, lng: -83.027849 } });
+    };
+
+    handleChange = name => event => {
+        this.setState({ [name]: event.target.value });
     };
 
     render() {
@@ -58,6 +62,8 @@ class HomePage extends Component {
                                 label="First name"
                                 fullWidth
                                 autoComplete="fname"
+                                value={this.state.firstName}
+                                onChange={this.handleChange('firstName')}
                             />
                         </Grid>
                         <Grid item xs={12}>
@@ -68,6 +74,20 @@ class HomePage extends Component {
                                 label="Last name"
                                 fullWidth
                                 autoComplete="lname"
+                                value={this.state.lastName}
+                                onChange={this.handleChange('lastName')}
+                            />
+                        </Grid>
+
+                        <Grid item xs={12}>
+                            <TextField
+                                required
+                                id="age"
+                                name="age"
+                                label="Age"
+                                value={this.state.age}
+                                onChange={this.handleChange('age')}
+                                type="number"
                             />
                         </Grid>
                         <Grid item xs={12}>
@@ -80,8 +100,8 @@ class HomePage extends Component {
                                     aria-label="Gender"
                                     name="gender"
                                     className={classes.group}
-                                    value={this.state.value}
-                                    onChange={this.handleGenderChange}
+                                    value={this.state.gender}
+                                    onChange={this.handleChange('gender')}
                                 >
                                     <FormControlLabel
                                         value="female"
@@ -106,6 +126,12 @@ class HomePage extends Component {
                                 placeholder=""
                                 onSuggestionSelected={this.onLocationChange}
                             />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <SportsSelector label="Sports you like" />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <SportsSelector label="Sports you dont like" />
                         </Grid>
                     </Grid>
                 </Paper>
