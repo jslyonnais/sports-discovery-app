@@ -1,0 +1,5 @@
+age,sexe,location_x,location_y,sports
+36,m,45.4846412,-73.562549,"['hockey', 'tennis', 'volleyball']"
+56,m,-87,-4.6,['tennis']
+43,f,78,179,['football']
+25,f,6,-180,[]
