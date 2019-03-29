@@ -286,6 +286,7 @@ class SportsSelector extends React.Component {
         this.setState({
             [name]: value
         });
+        this.props.onChange(value);
     };
 
     render() {

@@ -76,11 +76,13 @@ const styles = theme => ({
 
 class HomePage extends Component {
     state = {
-        gender: '',
+        gender: 'male',
         location: { lat: 0, lng: 0 },
         fullName: '',
         age: 12,
-        loading: false
+        loading: false,
+        likedSports: [],
+        dislikedSports: []
     };
 
     onLocationChange = (suggestion, suggestionValue) => {
@@ -89,6 +91,10 @@ class HomePage extends Component {
 
     handleChange = name => event => {
         this.setState({ [name]: event.target.value });
+    };
+
+    handleSportsChange = name => value => {
+        this.setState({ [name]: value });
     };
 
     handleSignUp = () => {
@@ -106,6 +112,8 @@ class HomePage extends Component {
                     gender: this.state.gender,
                     location: this.state.location,
                     age: this.state.age,
+                    likedsports: this.state.likedSports.map(sport=>sport.value),
+                    dislikedsports: this.state.dislikedSports.map(sport=>sport.value)
                 }
             ),
         })
@@ -186,10 +194,10 @@ class HomePage extends Component {
                             </FormControl>
                         </Grid>
                         <Grid item xs={12} lg={6}>
-                            <SportsSelector label="Sports you like" />
+                            <SportsSelector label="Sports you like" onChange={this.handleSportsChange('likedSports')} />
                         </Grid>
                         <Grid item xs={12} lg={6}>
-                            <SportsSelector label="Sports you dont like" />
+                            <SportsSelector label="Sports you dont like" onChange={this.handleSportsChange('dislikedSports')} />
                         </Grid>
                         <Grid item xs={12}>
                             <InputLabel htmlFor="location">
