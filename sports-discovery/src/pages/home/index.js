@@ -30,7 +30,6 @@ const styles = theme => ({
     fullWidth: {
         width: '100%'
     },
-    
     leftSideSection: {
         flex: 1,
         position: 'relative',
