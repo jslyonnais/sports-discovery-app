@@ -66,5 +66,4 @@ h = X[0:1].copy()
 prediction = model.predict(h)
 results = pd.DataFrame(data=prediction, columns=y.columns).T.sort_values(by=[0], ascending=False)
 results['sports'] = results.index
-results
 print(results)
