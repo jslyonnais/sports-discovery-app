@@ -37,13 +37,36 @@ const styles = theme => ({
     },
     leftSideSection: {
         flex: 1,
+        position: 'relative',
         display: 'flex',
+        flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#48bbff'
+        color: '#fff',
+        backgroundColor: '#48bbff',
+        overflow: 'hidden'
+    },
+    overlayImage: {
+        position: 'absolute',
+        opacity: 0.2,
+        height: '100%'
+    },
+    overlayContainer: {
+        width: '80%',
+        textAlign: 'center',
+        zIndex: 1
+    },
+    overlayTitle: {
+        fontSize: 52,
+        fontWeight: 700,
+        lineHeight: 1.5
+    },
+    overlayDesc: {
+
     },
     rightSideSection: {
         flex: 1,
+        position: 'relative',
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center'
@@ -72,10 +95,14 @@ class HomePage extends Component {
         return (
             <>
                 <div className={classes.leftSideSection}>
-                    ...
+                    <img className={classes.overlayImage} src="https://picsum.photos/1920/1080"/>
+                    <div className={classes.overlayContainer}>
+                        <h1 className={classes.overlayTitle}>Title Ipsum</h1>
+                        <div className={classes.overlayDesc}>Based on your the sports you've entered, we've supposed you'll like to play Tennis.Praesent sed placerat nisi.</div>
+                    </div>
                 </div>
                 <div className={classes.rightSideSection}>
-                <div>
+                
                 <div className={classes.paper}>
                     <Typography 
                         component="h2" 
@@ -153,8 +180,9 @@ class HomePage extends Component {
                             </Button>
                         </Grid>
                     </Grid>
-                </div>
-            </div>
+                    </div>
+                <div>
+                    </div>
                 </div>
             </>
             
