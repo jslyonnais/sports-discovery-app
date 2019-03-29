@@ -123,28 +123,34 @@ const styles = theme => ({
 });
 
 export class SportLocationPage extends Component {
-
     render() {
-
         const { match: { params }, classes } = this.props;
         const sport = sportsData.find(sport=>sport.id === parseInt(params.sportId));
+        const location = JSON.parse(localStorage.getItem('location'));
+        console.log("Location:");
+        console.log(location);
+        console.log(sport);
+        // https://sportplaces.api.decathlon.com/api/v1/places?origin=-73.582,45.511&radius=99&sports=175
+        fetch(`https://sportplaces.api.decathlon.com/api/v1/places?origin=${location.lng},${location.lat}&radius=99&sports=${sport.id}`)
+        .then(response => response.json())
+        .then(result => console.log(result))
 
         return (
             <>
                 <div className={classes.leftSideSection}>
                     <div style={{ height: '100vh', width: '100%' }}>
                         <GoogleMapReact
-                        bootstrapURLKeys={{ key: "AIzaSyADZ6SKjElEyIdZ7og8PzLEBZ6zLOAtPz8" }}
-                        defaultCenter={{ lat: 59.95, lng: 30.33}}
-                        defaultZoom={8}
+                            bootstrapURLKeys={{ key: "AIzaSyADZ6SKjElEyIdZ7og8PzLEBZ6zLOAtPz8" }}
+                            defaultCenter={location}
+                            defaultZoom={8}
                         >
-                        <LocationIcon
-                            fontSize="large"
-                            color="secondary"
-                            lat={59.955413}
-                            lng={30.337844}
-                            text="You are here"
-                        />
+                            <LocationIcon
+                                fontSize="large"
+                                color="secondary"
+                                lat={location.lat}
+                                lng={location.lng}
+                                text="You are here"
+                            />
                         </GoogleMapReact>
                     </div>
                 </div>
