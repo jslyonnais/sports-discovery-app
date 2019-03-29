@@ -6,7 +6,9 @@ import { withStyles } from '@material-ui/core/styles';
 
 const styles = theme => ({
     footer: {
-        padding: theme.spacing.unit * 6
+        position: 'absolute',
+        bottom: 10,
+        opacity: 0.8
     },
     footerText: {
         display: 'flex',
@@ -25,21 +27,17 @@ class Footer extends Component {
         return (
             <>
                 <footer className={classes.footer}>
-                    <Typography variant="h6" align="center" gutterBottom>
-                        Sports Discovery
-                    </Typography>
                     <Typography
-                        variant="subtitle1"
                         align="center"
                         color="textSecondary"
                         component="p"
                         className={classes.footerText}
                     >
-                        Built with{' '}
-                        <Icon color="error" className={classes.heartIcon}>
+                        Made with{' '}
+                        <Icon className={classes.heartIcon}>
                             favorite
                         </Icon>{' '}
-                        by the GSOFT team.
+                        in Montreal
                     </Typography>
                 </footer>
             </>
