@@ -120,6 +120,12 @@ const styles = theme => ({
         display: 'flex',
         alignItems: 'center'
     },
+    by: {
+        display: 'block',
+        fontSize: 12,
+        fontWeight: 400,
+        color: '#bbb'
+    }
 });
 
 export class SportPage extends Component {
@@ -178,6 +184,7 @@ export class SportPage extends Component {
                                     gutterBottom
                                 >
                                     Suggested gear
+                                    <span className={classes.by}>by Decathlon</span>
                                 </Typography>
                             </span>
                             <div className={classes.gearList}>
