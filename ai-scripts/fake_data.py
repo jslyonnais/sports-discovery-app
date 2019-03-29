@@ -178,11 +178,10 @@ def get_sport_age_bounds(acc, sport_name):
 
 
 def get_age(sports):
-    bounds = reduce(get_sport_age_bounds, sports, [])
-
-    if len(bounds) == 0:
+    if len(sports) == 0:
         return random.randint(age_bounds[0], age_bounds[1])
 
+    bounds = reduce(get_sport_age_bounds, sports, [])
     lower_bound = max(list(map(lambda bound: bound[0], bounds)))
     upper_bound = min(list(map(lambda bound: bound[1], bounds)))
 
@@ -204,21 +203,9 @@ def pick_sport_based_on_sex(acc, sport, sex):
     return acc
 
 
-def generate():
-    headers = ["age", "sex", "location_x", "location_y", "sports"]
-    data = [headers]
-
-    data += generate_pattern_data()
-    data += generate_random_data()
-
-    with open('fake_data.csv', 'w', newline='') as csv_file:
-        writer = csv.writer(csv_file)
-        writer.writerows(data)
-
-
-def generate_pattern_data():
+def generate_pattern_data(count):
     data = []
-    for i in range(nb_pattern_data_points):
+    for i in range(count):
         sex = sexes[random.randint(0, 1)]
 
         sports = reduce(pick_sport(sex), all_sports, [])
@@ -233,10 +220,9 @@ def generate_pattern_data():
     return data
 
 
-def generate_random_data():
+def generate_random_data(count):
     data = []
-    random_data_ratio = 0.1
-    for i in range(round(nb_pattern_data_points * random_data_ratio)):
+    for i in range(count):
         sex = sexes[random.randint(0, 1)]
         age = random.randint(age_bounds[0], age_bounds[1])
         location_x = random.uniform(location_x_bounds[0], location_x_bounds[1])
@@ -248,6 +234,20 @@ def generate_random_data():
         data.append([age, sex, location_x, location_y, sports])
 
     return data
+
+
+def generate():
+    headers = ["age", "sex", "location_x", "location_y", "sports"]
+    data = [headers]
+
+    data += generate_pattern_data(nb_pattern_data_points)
+
+    random_data_ratio = 0.1
+    data += generate_random_data(round(nb_pattern_data_points * random_data_ratio))
+
+    with open('fake_data.csv', 'w', newline='') as csv_file:
+        writer = csv.writer(csv_file)
+        writer.writerows(data)
 
 
 generate()
