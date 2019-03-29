@@ -161,7 +161,7 @@ export class SportPage extends Component {
                             className={classes.title}
                             gutterBottom
                         >
-                            Try {sport.title}
+                            You should try {sport.title}
                         </Typography>
                         <Typography variant="body1" gutterBottom>
                             {sport.description}
