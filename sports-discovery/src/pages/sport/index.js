@@ -41,15 +41,17 @@ export class SportPage extends Component {
                     ...
                 </div>
                 <div className={classes.rightSideSection}>
-                    <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
-                    {sport.title}
-                    </Typography>
-                    <Typography variant="body1" gutterBottom>
-                    {sport.Description}
-                    </Typography>
-                    <Typography variant="h6" align="center" gutterBottom>
-                    Requiered gear
-                    </Typography>
+                    <div>
+                        <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
+                        {sport.title}
+                        </Typography>
+                        <Typography variant="body1" gutterBottom>
+                        {sport.Description}
+                        </Typography>
+                        <Typography variant="h6" align="center" gutterBottom>
+                        Requiered gear
+                        </Typography>
+                    </div>
                 </div>
             </>
         );
