@@ -120,6 +120,12 @@ const styles = theme => ({
         display: 'flex',
         alignItems: 'center'
     },
+    by: {
+        display: 'block',
+        fontSize: 12,
+        fontWeight: 400,
+        color: '#bbb'
+    }
 });
 
 export class SportPage extends Component {
@@ -135,7 +141,7 @@ export class SportPage extends Component {
                     <img className={classes.overlayImage} src={sport.image}/>
                     <div className={classes.overlayContainer}>
                         <h1 className={classes.overlayTitle}>{sport.title}</h1>
-                        <div className={classes.overlayDesc}>Based on your the sports you've entered, <br/>we've supposed you'll like to play {sport.title}.</div>
+                        <div className={classes.overlayDesc}>Based on your choices of sports, <br/>our genius AI have find that you would like to play to {sport.title}.</div>
                     </div>
                 </div>
                 <div className={classes.rightSideSection}>
@@ -161,7 +167,7 @@ export class SportPage extends Component {
                             className={classes.title}
                             gutterBottom
                         >
-                            Try {sport.title}
+                            You should try {sport.title}
                         </Typography>
                         <Typography variant="body1" gutterBottom>
                             {sport.description}
@@ -178,6 +184,7 @@ export class SportPage extends Component {
                                     gutterBottom
                                 >
                                     Suggested gear
+                                    <span className={classes.by}>by Decathlon</span>
                                 </Typography>
                             </span>
                             <div className={classes.gearList}>

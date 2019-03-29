@@ -10,7 +10,7 @@ const styles = theme => ({
         bottom: 10,
         left: 0,
         right: 0,
-        opacity: 0.8
+        opacity: 0.45
     },
     footerText: {
         display: 'flex',

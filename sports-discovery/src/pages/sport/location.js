@@ -123,18 +123,34 @@ const styles = theme => ({
 });
 
 export class SportLocationPage extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = { places: [] }
+    }
+
+    componentDidMount() {
+        const { match: { params } } = this.props;
+        const location = JSON.parse(localStorage.getItem('location'));
+        const self = this;
+
+        fetch(`https://sportplaces.api.decathlon.com/api/v1/places?origin=${location.lng},${location.lat}&radius=99&sports=${params.sportId}`)
+            .then(response => response.json())
+            .then(result => { self.setState({ places: result.data.features }) });
+    }
+
     render() {
         const { match: { params }, classes } = this.props;
         const sport = sportsData.find(sport=>sport.id === parseInt(params.sportId));
         const location = JSON.parse(localStorage.getItem('location'));
-        console.log("Location:");
-        console.log(location);
-        console.log(sport);
-        // https://sportplaces.api.decathlon.com/api/v1/places?origin=-73.582,45.511&radius=99&sports=175
-        fetch(`https://sportplaces.api.decathlon.com/api/v1/places?origin=${location.lng},${location.lat}&radius=99&sports=${sport.id}`)
-        .then(response => response.json())
-        .then(result => console.log(result))
 
+        const locationMarker = <LocationIcon fontSize="large" color="primary" lat={location.lat} lng={location.lng} text="You are here" />
+        const placeMarkers = this.state.places.map(place => {
+            const { name, uuid } = place.properties;
+            const coords = place.geometry.coordinates;
+            return <LocationIcon key={uuid} fontSize="large" color="secondary" lat={coords[1]} lng={coords[0]} text={name} />
+        });
+        
         return (
             <>
                 <div className={classes.leftSideSection}>
@@ -144,13 +160,8 @@ export class SportLocationPage extends Component {
                             defaultCenter={location}
                             defaultZoom={8}
                         >
-                            <LocationIcon
-                                fontSize="large"
-                                color="secondary"
-                                lat={location.lat}
-                                lng={location.lng}
-                                text="You are here"
-                            />
+                            {placeMarkers}
+                            {locationMarker}
                         </GoogleMapReact>
                     </div>
                 </div>
