@@ -23,12 +23,14 @@ namespace ExtractTool
 
             // Get all sports
             var allSports = await sportsAPIClient.GetAll();
-            var parentSports = allSports.Where(s => s.IsParent).ToList();
+            var sports = allSports.Select(s=> new {
+                s.Attributes.Name,
+                s.Id
+            }).ToList();
 
             // Write to JSON file
-            WriteToFile("parentSports", parentSports);
+            WriteToFile("sports", sports);
 
-            parentSports.ForEach(ps => Console.WriteLine(ps.Attributes.Name));
             Console.WriteLine("All done. Press any key to close this window...");
             Console.Read();
 
