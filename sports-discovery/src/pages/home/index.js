@@ -112,7 +112,7 @@ class HomePage extends Component {
     handleSignUp = () => {
         this.setState({ loading: true });
         
-        fetch("https://sportsdiscovery.azurewebsites.net/api/compute?name=hugo&code=G7nO2EgrwhZtHvInE6ajgiQj8ZHSk0PjHRREQy9I39afZexyteqX1g==", {
+        fetch("https://sportsdiscovery.azurewebsites.net/api/Compute?code=1jBYduutNJHG/wafTLX7J9H7Hx3etlVVlAY4BpuT21ESw1btCwkkGg==", {
             method: "POST",
             mode:"no-cors",
             cache: "no-cache",
@@ -124,17 +124,17 @@ class HomePage extends Component {
                     gender: this.state.gender,
                     location: this.state.location,
                     age: this.state.age,
-                    likedsports: this.state.likedSports.map(sport=>sport.value),
-                    dislikedsports: this.state.dislikedSports.map(sport=>sport.value)
+                    likedsports: this.state.likedSports.map(sport=>sport.value)
                 }
             ),
         })
+        .then(result => result.json())
         .then(
           (result) => {
             this.setState({
                 loading: false
             });
-            const sportId = 270;
+            const sportId = result;
             this.props.history.push(`/sports/${sportId}`);
           })
     };
@@ -150,7 +150,7 @@ class HomePage extends Component {
                     <img className={classes.overlayImage} src="./home-photo-1.jpg"/>
                     <div className={classes.overlayContainer}>
                         <h1 className={classes.overlayTitle}>Wanna be sporty?</h1>
-                        <div className={classes.overlayDesc}>Tired of always doing the same sport, or simply wanna start a new one? Lets Sportify's AI suggest you new sports that you should try, based on your current sport preferences.</div>
+                        <div className={classes.overlayDesc}>Tired of always doing the same sport, or simply want to try a new one? Lets Sportify's AI suggest you new sports that you should try based on your current sport preferences.</div>
                     </div>
                 </div>
                 <div className={classes.rightSideSection}>
