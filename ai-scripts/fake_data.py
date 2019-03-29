@@ -2,8 +2,10 @@ import random
 import csv
 from functools import reduce
 
+chance_to_practice_sport = 7
 nb_pattern_data_points = 10000
 age_bounds = [1, 120]
+FEMALE, MALE = 0, 1
 sexes = ["f", "m"]
 location_x_bounds = [-90, 90]
 location_y_bounds = [-180, 180]
@@ -172,17 +174,16 @@ all_sports = [
 ]
 
 
-def get_sport_age_bounds(acc, sport_name):
-    sport = list(filter(lambda sport_data: sport_data["id"] == sport_name, all_sports))
+def get_sport_age_bounds(acc, sport_id):
+    sport = list(filter(lambda sport_data: sport_data["id"] == sport_id, all_sports))
     return acc + [sport[0]["age_bounds"]]
 
 
 def get_age(sports):
-    bounds = reduce(get_sport_age_bounds, sports, [])
-
-    if len(bounds) == 0:
+    if len(sports) == 0:
         return random.randint(age_bounds[0], age_bounds[1])
 
+    bounds = reduce(get_sport_age_bounds, sports, [])
     lower_bound = max(list(map(lambda bound: bound[0], bounds)))
     upper_bound = min(list(map(lambda bound: bound[1], bounds)))
 
@@ -192,38 +193,39 @@ def get_age(sports):
     return random.randint(lower_bound, upper_bound)
 
 
-def pick_sport(sex):
-    return lambda acc, sport: pick_sport_based_on_sex(acc, sport, sex)
+def get_sport_male_ratios(acc, sport_id):
+    sport = list(filter(lambda sport_data: sport_data["id"] == sport_id, all_sports))[0]
+    return acc + [sport["m"] / (sport["m"] + sport["f"])]
 
 
-def pick_sport_based_on_sex(acc, sport, sex):
+def get_sex(sports):
+    if len(sports) == 0:
+        return sexes[random.randint(0, 1)]
+
+    roll = random.uniform(0, 1)
+    male_ratios = reduce(get_sport_male_ratios, sports, [])
+    avg_male_ratio = sum(male_ratios) / len(male_ratios)
+
+    sex = MALE if roll <= avg_male_ratio else FEMALE
+
+    return sexes[sex]
+
+
+def pick_sport(acc, sport):
     roll = random.uniform(0, 100)
-    if roll <= sport[sex]:
+    if roll <= chance_to_practice_sport:
         return acc + [sport["id"]]
 
     return acc
 
 
-def generate():
-    headers = ["age", "sex", "location_x", "location_y", "sports"]
-    data = [headers]
-
-    data += generate_pattern_data()
-    data += generate_random_data()
-
-    with open('fake_data.csv', 'w', newline='') as csv_file:
-        writer = csv.writer(csv_file)
-        writer.writerows(data)
-
-
-def generate_pattern_data():
+def generate_pattern_data(count):
     data = []
-    for i in range(nb_pattern_data_points):
-        sex = sexes[random.randint(0, 1)]
-
-        sports = reduce(pick_sport(sex), all_sports, [])
+    for i in range(count):
+        sports = reduce(pick_sport, all_sports, [])
 
         age = get_age(sports)
+        sex = get_sex(sports)
 
         location_x = random.uniform(location_x_bounds[0], location_x_bounds[1])
         location_y = random.uniform(location_y_bounds[0], location_y_bounds[1])
@@ -233,10 +235,9 @@ def generate_pattern_data():
     return data
 
 
-def generate_random_data():
+def generate_random_data(count):
     data = []
-    random_data_ratio = 0.1
-    for i in range(round(nb_pattern_data_points * random_data_ratio)):
+    for i in range(count):
         sex = sexes[random.randint(0, 1)]
         age = random.randint(age_bounds[0], age_bounds[1])
         location_x = random.uniform(location_x_bounds[0], location_x_bounds[1])
@@ -248,6 +249,20 @@ def generate_random_data():
         data.append([age, sex, location_x, location_y, sports])
 
     return data
+
+
+def generate():
+    headers = ["age", "sex", "location_x", "location_y", "sports"]
+    data = [headers]
+
+    data += generate_pattern_data(nb_pattern_data_points)
+
+    random_data_ratio = 0.1
+    data += generate_random_data(round(nb_pattern_data_points * random_data_ratio))
+
+    with open('fake_data.csv', 'w', newline='') as csv_file:
+        writer = csv.writer(csv_file)
+        writer.writerows(data)
 
 
 generate()

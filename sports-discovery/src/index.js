@@ -4,12 +4,13 @@ import * as serviceWorker from './serviceWorker';
 
 import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
 
-import AboutPage from './pages/about';
+import AboutPage from './pages/about'
 import HomePage from './pages/home';
 import Layout from './layout';
 import NotFoundPage from './pages/not-found';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import SportPage from './pages/sport';
 
 const routing = (
     <Router>
@@ -17,6 +18,7 @@ const routing = (
             <Switch>
                 <Route exact path="/" component={HomePage} />
                 <Route path="/about" component={AboutPage} />
+                <Route path="/sports/:sportId(\d+)" component={SportPage} />
                 <Route component={NotFoundPage} />
             </Switch>
         </Layout>
