@@ -12,6 +12,11 @@ import { withStyles } from '@material-ui/core/styles';
 const styles = theme => ({
     appBar: {
         position: 'absolute'
+    },
+    toolBar: {
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-between"
     }
 });
 
@@ -27,7 +32,7 @@ class HeaderNav extends Component {
                     color="default"
                     className={classes.appBar}
                 >
-                    <Toolbar>
+                    <Toolbar classes={{ root: classes.toolBar }}>
                         <Typography
                             variant="h6"
                             color="inherit"
@@ -36,15 +41,17 @@ class HeaderNav extends Component {
                         >
                             Sportify
                         </Typography>
-                        <Button component={RouterLink} to="/">
-                            Home
-                        </Button>
-                        <Button component={RouterLink} to="/about">
-                            About
-                        </Button>
-                        <Button color="primary" variant="outlined">
-                            Login
-                        </Button>
+                        <div>
+                            <Button component={RouterLink} to="/">
+                                Home
+                            </Button>
+                            <Button component={RouterLink} to="/about">
+                                About
+                            </Button>
+                            <Button color="primary" variant="outlined">
+                                Login
+                            </Button>
+                        </div>
                     </Toolbar>
                 </AppBar>
             </>
