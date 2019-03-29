@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import Typography from '@material-ui/core/Typography';
 import { sportsData } from './sportsData.js'
+import withStyles from '@material-ui/core/styles/withStyles';
 
 const styles = theme => ({
     paper: {
@@ -14,36 +15,13 @@ const styles = theme => ({
     },
     leftSideSection: {
         flex: 1,
-        position: 'relative',
         display: 'flex',
-        flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        color: '#fff',
-        backgroundColor: '#48bbff',
-        overflow: 'hidden'
-    },
-    overlayImage: {
-        position: 'absolute',
-        opacity: 0.2,
-        height: '100%'
-    },
-    overlayContainer: {
-        width: '80%',
-        textAlign: 'center',
-        zIndex: 1
-    },
-    overlayTitle: {
-        fontSize: 52,
-        fontWeight: 700,
-        lineHeight: 1.5
-    },
-    overlayDesc: {
-
+        backgroundColor: '#48bbff'
     },
     rightSideSection: {
         flex: 1,
-        position: 'relative',
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center'
@@ -53,23 +31,29 @@ const styles = theme => ({
 export class SportPage extends Component {
 
     render() {
-        const { match: { params } } = this.props;
+
+        const { match: { params }, classes } = this.props;
         const sport = sportsData.find(sport=>sport.id === parseInt(params.sportId));
 
         return (
             <>
-                <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
-                {sport.title}
-                </Typography>
-                <Typography variant="body1" gutterBottom>
-                {sport.Description}
-                </Typography>
-                <Typography variant="h6" align="center" gutterBottom>
-                Requiered gear
-                </Typography>
+                <div className={classes.leftSideSection}>
+                    ...
+                </div>
+                <div className={classes.rightSideSection}>
+                    <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
+                    {sport.title}
+                    </Typography>
+                    <Typography variant="body1" gutterBottom>
+                    {sport.Description}
+                    </Typography>
+                    <Typography variant="h6" align="center" gutterBottom>
+                    Requiered gear
+                    </Typography>
+                </div>
             </>
         );
     }
 }
 
-export default SportPage;
+export default withStyles(styles)(SportPage);
