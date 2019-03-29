@@ -8,7 +8,7 @@ from keras.layers.core import Dense, Dropout, Activation
 from sklearn.model_selection import train_test_split
 
 batch_size = 100
-epochs = 100
+epochs = 30
 ts = str(datetime.datetime.now().timestamp())
 model_file_name = 'model-' + ts + '.h5'
 
@@ -55,6 +55,13 @@ score = model.evaluate(x_test, y_test, verbose=0)
 print('Test loss:', score[0])
 print('Test accuracy:', score[1])
 
+# Creates a HDF5 file 'my_model.h5'
+model.save(model_file_name)
+
+# Deletes the existing model
+del model  
+
+# Returns a compiled model identical to the previous one
 model = load_model(model_file_name)
 
 score = model.evaluate(x_test, y_test, verbose=0)
@@ -62,8 +69,11 @@ print('Test loss:', score[0])
 print('Test accuracy:', score[1])
 
 h = X[0:1].copy()
-
-prediction = model.predict(h)
+f = X[0:1].copy()
+[0, 'sports']
+prediction = model.predict(f)
 results = pd.DataFrame(data=prediction, columns=y.columns).T.sort_values(by=[0], ascending=False)
-results['sports'] = results.index
+results['sportId'] = results.index
+results['sportId'] = results['sportId'].apply(lambda x: x.replace('-expected',''))
+results.columns = ['value', 'sports']
 print(results)
