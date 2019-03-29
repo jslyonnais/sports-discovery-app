@@ -179,7 +179,12 @@ class GMapsAutocomplete extends React.Component {
         event,
         { suggestion, suggestionValue, suggestionIndex, sectionIndex, method }
     ) => {
-        this.props.onSuggestionSelected(suggestion, suggestionValue);
+        
+        this.geocoder.geocode({'placeId': suggestion.place_id}, (results, status) => {
+            if (status === 'OK') {
+                this.props.onSuggestionSelected(results[0]);
+          }
+        });
     };
 
     render() {
