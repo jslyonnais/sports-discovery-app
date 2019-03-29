@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 
+import Icon from '@material-ui/core/Icon';
+import { Link } from 'react-router-dom';
 import Typography from '@material-ui/core/Typography';
 import { sportsData } from './sportsData.js'
 import withStyles from '@material-ui/core/styles/withStyles';
-import Icon from '@material-ui/core/Icon';
 
 const styles = theme => ({
     paper: {
@@ -41,7 +42,7 @@ const styles = theme => ({
     overlayTitle: {
         fontSize: 52,
         fontWeight: 700,
-        lineHeight: 1.5,
+        lineHeight: 1,
         textTransform: 'capitalize'
     },
     overlayDesc: {
@@ -134,7 +135,7 @@ export class SportPage extends Component {
                     <img className={classes.overlayImage} src={sport.image}/>
                     <div className={classes.overlayContainer}>
                         <h1 className={classes.overlayTitle}>{sport.title}</h1>
-                        <div className={classes.overlayDesc}>Based on your the sports you've entered, we've supposed you'll like to play Tennis.Praesent sed placerat nisi.</div>
+                        <div className={classes.overlayDesc}>Based on your the sports you've entered, <br/>we've supposed you'll like to play {sport.title}.</div>
                     </div>
                 </div>
                 <div className={classes.rightSideSection}>
@@ -196,7 +197,7 @@ export class SportPage extends Component {
                             <Icon className={classes.icon}>
                                 location_on
                             </Icon>
-                            <span className={classes.link}>Discover where to play</span>
+                            <Link className={classes.link} to={`/sports/${params.sportId}/location`} >Discover where to play</Link>
                         </div>
                     </div>
                 </div>

@@ -10,6 +10,7 @@ import Layout from './layout';
 import NotFoundPage from './pages/not-found';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import SportLocationPage from './pages/sport/location';
 import SportPage from './pages/sport';
 
 const routing = (
@@ -18,6 +19,7 @@ const routing = (
             <Switch>
                 <Route exact path="/" component={HomePage} />
                 <Route path="/about" component={AboutPage} />
+                <Route path="/sports/:sportId(\d+)/location" component={SportLocationPage} />
                 <Route path="/sports/:sportId(\d+)" component={SportPage} />
                 <Route component={NotFoundPage} />
             </Switch>

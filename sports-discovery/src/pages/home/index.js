@@ -54,11 +54,12 @@ const styles = theme => ({
     overlayTitle: {
         fontSize: 62,
         fontWeight: 700,
-        lineHeight: 1.5,
+        lineHeight: 1,
         marginBottom: 10
     },
     overlayDesc: {
-        fontSize: 22,
+        fontSize: 20,
+        lineHeight: 1.25
     },
     rightSideSection: {
         flex: 1,
@@ -66,6 +67,13 @@ const styles = theme => ({
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center'
+    },
+    button: {
+        width: '100%',
+        backgroundColor: '#48BBFF',
+        '&:hover': {
+            backgroundColor: '#3399FF'
+        }
     },
     fabProgress: {
         height:"28px",
@@ -87,7 +95,10 @@ class HomePage extends Component {
     };
 
     onLocationChange = (suggestion) => {
-        this.setState({ location: { lat: suggestion.geometry.location.lat(), lng: suggestion.geometry.location.lat() } });
+        console.log("onLocationChange");
+        const location = { lat: suggestion.geometry.location.lat(), lng: suggestion.geometry.location.lng() };
+        this.setState({ location: location });
+        localStorage.setItem('location', JSON.stringify(location));
     };
 
     handleChange = name => event => {
@@ -136,10 +147,10 @@ class HomePage extends Component {
         return (
             <>
                 <div className={classes.leftSideSection}>
-                    <img className={classes.overlayImage} src="https://picsum.photos/1920/1080"/>
+                    <img className={classes.overlayImage} src="./home-photo-1.jpg"/>
                     <div className={classes.overlayContainer}>
-                        <h1 className={classes.overlayTitle}>Sport for everyone.</h1>
-                        <div className={classes.overlayDesc}>Millions of sports. No credit card needed.</div>
+                        <h1 className={classes.overlayTitle}>Wanna be sporty?</h1>
+                        <div className={classes.overlayDesc}>Tired of always doing the same sport, or simply wanna start a new one? Let's Sportify give you suggestions about the new sports that you should try based on your current sport preferences.</div>
                     </div>
                 </div>
                 <div className={classes.rightSideSection}>
