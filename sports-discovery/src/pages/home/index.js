@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 
+import { Footer } from '../../components/footer';
 import FormControl from '@material-ui/core/FormControl';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormLabel from '@material-ui/core/FormLabel';
@@ -21,6 +22,42 @@ const styles = theme => ({
             marginBottom: theme.spacing.unit * 6,
             padding: theme.spacing.unit * 3
         }
+    },
+    leftSideSection: {
+        flex: 1,
+        position: 'relative',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        color: '#fff',
+        backgroundColor: '#48bbff',
+        overflow: 'hidden'
+    },
+    overlayImage: {
+        position: 'absolute',
+        opacity: 0.2,
+        height: '100%'
+    },
+    overlayContainer: {
+        width: '80%',
+        textAlign: 'center',
+        zIndex: 1
+    },
+    overlayTitle: {
+        fontSize: 52,
+        fontWeight: 700,
+        lineHeight: 1.5
+    },
+    overlayDesc: {
+
+    },
+    rightSideSection: {
+        flex: 1,
+        position: 'relative',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center'
     }
 });
 
@@ -45,7 +82,17 @@ class HomePage extends Component {
         const { classes } = this.props;
 
         return (
-            <div>
+        <>
+            <div className={classes.leftSideSection}>
+            <img className={classes.overlayImage} src="https://picsum.photos/1920/1080"/>
+            <div className={classes.overlayContainer}>
+                <h1 className={classes.overlayTitle}>Title Ipsum</h1>
+                <div className={classes.overlayDesc}>Based on your the sports you've entered, we've supposed you'll like to play Tennis.Praesent sed placerat nisi.</div>
+            </div>
+
+            <Footer />
+            </div>
+        <div className={classes.rightSideSection}>
                 <div className={classes.paper}>
                     <Typography component="h1" variant="h4" align="center">
                         Profile
@@ -133,6 +180,7 @@ class HomePage extends Component {
                     </Grid>
                 </div>
             </div>
+            </>
         );
     }
 }

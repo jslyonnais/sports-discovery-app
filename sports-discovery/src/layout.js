@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 
-import { Footer } from './components/footer';
 import { HeaderNav } from './components/header-nav';
 import { withStyles } from '@material-ui/core/styles';
 
@@ -59,18 +58,7 @@ class Layout extends Component {
             <>
                 <HeaderNav />
                 <main className={classes.layout}>
-                    <div className={classes.leftSideSection}>
-                        <img className={classes.overlayImage} src="https://picsum.photos/1920/1080"/>
-                        <div className={classes.overlayContainer}>
-                            <h1 className={classes.overlayTitle}>Title Ipsum</h1>
-                            <div className={classes.overlayDesc}>Based on your the sports you've entered, we've supposed you'll like to play Tennis.Praesent sed placerat nisi.</div>
-                        </div>
-
-                        <Footer />
-                    </div>
-                    <div className={classes.rightSideSection}>
-                        <div>{this.props.children}</div>
-                    </div>
+                    {this.props.children}
                 </main>
                 
             </>
