@@ -9,7 +9,7 @@ const styles = theme => ({
     paper: {
         marginTop: theme.spacing.unit * 6,
         marginBottom: theme.spacing.unit * 6,
-        padding: theme.spacing.unit * 10
+        padding: theme.spacing.unit * 14
     },
     title: {
         display: 'block',
@@ -98,7 +98,27 @@ const styles = theme => ({
     bump: {
         display: 'block',
         marginTop: theme.spacing.unit * 3
-    }
+    },
+    controls: {
+        position: 'absolute',
+        width: '100%',
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        color: '#e0e0e0'
+    },
+    arrowPrev: {
+        marginLeft: theme.spacing.unit,
+        fontSize: 14,
+        display: 'flex',
+        alignItems: 'center'
+    },
+    arrowNext: {
+        marginRight: theme.spacing.unit,
+        fontSize: 14,
+        display: 'flex',
+        alignItems: 'center'
+    },
 });
 
 export class SportPage extends Component {
@@ -118,6 +138,20 @@ export class SportPage extends Component {
                     </div>
                 </div>
                 <div className={classes.rightSideSection}>
+                    <div className={classes.controls}>
+                        <span className={classes.arrowPrev}>
+                            <Icon className={classes.icon}>
+                                arrow_back_ios
+                            </Icon>
+                            Prev
+                        </span>
+                        <span className={classes.arrowNext}>
+                            Next
+                            <Icon className={classes.icon}>
+                                arrow_forward_ios
+                            </Icon>
+                        </span>
+                    </div>
                     <div className={classes.paper}>
                         <Typography 
                             component="h2"
@@ -126,7 +160,7 @@ export class SportPage extends Component {
                             className={classes.title}
                             gutterBottom
                         >
-                            Discover {sport.title}
+                            Try {sport.title}
                         </Typography>
                         <Typography variant="body1" gutterBottom>
                             {sport.description}
