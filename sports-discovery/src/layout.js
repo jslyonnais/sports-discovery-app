@@ -6,14 +6,23 @@ import { withStyles } from '@material-ui/core/styles';
 
 const styles = theme => ({
     layout: {
-        width: 'auto',
-        marginLeft: theme.spacing.unit * 3,
-        marginRight: theme.spacing.unit * 3,
-        [theme.breakpoints.up(900 + theme.spacing.unit * 3 * 2)]: {
-            width: 900,
-            marginLeft: 'auto',
-            marginRight: 'auto'
-        }
+        display: 'flex',
+        justifyContent: 'center',
+        width: '100%',
+        minHeight: '100vh'
+    },
+    leftSideSection: {
+        flex: 1,
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#48bbff'
+    },
+    rightSideSection: {
+        flex: 1,
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center'
     }
 });
 
@@ -24,7 +33,14 @@ class Layout extends Component {
         return (
             <>
                 <HeaderNav />
-                <main className={classes.layout}>{this.props.children}</main>
+                <main className={classes.layout}>
+                    <div className={classes.leftSideSection}>
+                        ...
+                    </div>
+                    <div className={classes.rightSideSection}>
+                        <div>{this.props.children}</div>
+                    </div>
+                </main>
                 <Footer />
             </>
         );
