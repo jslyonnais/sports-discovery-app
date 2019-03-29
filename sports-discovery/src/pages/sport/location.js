@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 
-import { sportsData } from './sportsData.js'
 import GoogleMapReact from 'google-map-react';
 import Icon from '@material-ui/core/Icon';
 import LocationIcon from '@material-ui/icons/LocationOn';
