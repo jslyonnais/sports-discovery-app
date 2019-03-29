@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import Button from '@material-ui/core/Button';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 import { GMapsAutocomplete } from '../../components/place-autocomplete';
@@ -29,53 +30,120 @@ const styles = theme => ({
     fullWidth: {
         width: '100%'
     },
-    button: {
-        display: 'block',
-        width: '100%',
-        color: '#fff',
-        backgroundColor: '#48bbff'
-    },
     leftSideSection: {
         flex: 1,
+        position: 'relative',
         display: 'flex',
+        flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#48bbff'
+        color: '#fff',
+        backgroundColor: '#48bbff',
+        overflow: 'hidden'
+    },
+    overlayImage: {
+        position: 'absolute',
+        opacity: 0.2,
+        height: '100%'
+    },
+    overlayContainer: {
+        width: '80%',
+        textAlign: 'center',
+        zIndex: 1
+    },
+    overlayTitle: {
+        fontSize: 62,
+        fontWeight: 700,
+        lineHeight: 1.5,
+        marginBottom: 10
+    },
+    overlayDesc: {
+        fontSize: 22,
     },
     rightSideSection: {
         flex: 1,
+        position: 'relative',
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center'
-    }
+    },
+    fabProgress: {
+        height:"28px",
+        width:"28px",
+        position: "absolute",
+        margin: "0 10px"
+      },
 });
 
 class HomePage extends Component {
     state = {
-        gender: '',
+        gender: 'male',
         location: { lat: 0, lng: 0 },
         fullName: '',
-        age: 12
+        age: 12,
+        loading: false,
+        likedSports: [],
+        dislikedSports: []
     };
 
-    onLocationChange = (suggestion, suggestionValue) => {
-        this.setState({ location: { lat: 42.5465497, lng: -83.027849 } });
+    onLocationChange = (suggestion) => {
+        this.setState({ location: { lat: suggestion.geometry.location.lat(), lng: suggestion.geometry.location.lat() } });
     };
 
     handleChange = name => event => {
         this.setState({ [name]: event.target.value });
     };
 
+    handleSportsChange = name => value => {
+        this.setState({ [name]: value });
+    };
+
+    handleSignUp = () => {
+        this.setState({ loading: true });
+        
+        fetch("https://sportsdiscovery.azurewebsites.net/api/compute?name=hugo&code=G7nO2EgrwhZtHvInE6ajgiQj8ZHSk0PjHRREQy9I39afZexyteqX1g==", {
+            method: "POST",
+            mode:"no-cors",
+            cache: "no-cache",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(
+                {
+                    gender: this.state.gender,
+                    location: this.state.location,
+                    age: this.state.age,
+                    likedsports: this.state.likedSports.map(sport=>sport.value),
+                    dislikedsports: this.state.dislikedSports.map(sport=>sport.value)
+                }
+            ),
+        })
+        .then(
+          (result) => {
+            this.setState({
+                loading: false
+            });
+            const sportId = 270;
+            this.props.history.push(`/sports/${sportId}`);
+          })
+    };
+
     render() {
         const { classes } = this.props;
+        const { loading } = this.state;
+        console.log(this.props)
 
         return (
             <>
                 <div className={classes.leftSideSection}>
-                    ...
+                    <img className={classes.overlayImage} src="https://picsum.photos/1920/1080"/>
+                    <div className={classes.overlayContainer}>
+                        <h1 className={classes.overlayTitle}>Sport for everyone.</h1>
+                        <div className={classes.overlayDesc}>Millions of sports. No credit card needed.</div>
+                    </div>
                 </div>
                 <div className={classes.rightSideSection}>
-                <div>
+                
                 <div className={classes.paper}>
                     <Typography 
                         component="h2" 
@@ -123,15 +191,14 @@ class HomePage extends Component {
                                 >
                                     <MenuItem value={'female'}>Female</MenuItem>
                                     <MenuItem value={'male'}>Male</MenuItem>
-                                    <MenuItem value={'other'}>Other</MenuItem>
                                 </Select>
                             </FormControl>
                         </Grid>
                         <Grid item xs={12} lg={6}>
-                            <SportsSelector label="Sports you like" />
+                            <SportsSelector label="Sports you like" onChange={this.handleSportsChange('likedSports')} />
                         </Grid>
                         <Grid item xs={12} lg={6}>
-                            <SportsSelector label="Sports you dont like" />
+                            <SportsSelector label="Sports you dont like" onChange={this.handleSportsChange('dislikedSports')} />
                         </Grid>
                         <Grid item xs={12}>
                             <InputLabel htmlFor="location">
@@ -144,17 +211,23 @@ class HomePage extends Component {
                                 onSuggestionSelected={this.onLocationChange}
                             />
                         </Grid>
+
                         <Grid item xs={12}>
                             <Button 
                                 variant="contained" 
                                 color="primary"
-                                className={classes.button}>
+                                className={classes.button}
+                                onClick={this.handleSignUp}
+                                disabled={loading}
+                                >
                                 Sign Up
                             </Button>
+                            {loading && <CircularProgress size={28} className={classes.fabProgress} />}
                         </Grid>
                     </Grid>
-                </div>
-            </div>
+                    </div>
+                <div>
+                    </div>
                 </div>
             </>
             

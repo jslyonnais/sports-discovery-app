@@ -8,12 +8,15 @@ const styles = theme => ({
     footer: {
         position: 'absolute',
         bottom: 10,
+        left: 0,
+        right: 0,
         opacity: 0.8
     },
     footerText: {
         display: 'flex',
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        width: '50%'
     },
     heartIcon: {
         margin: theme.spacing.unit * 1
