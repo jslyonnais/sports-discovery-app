@@ -52,12 +52,13 @@ const styles = theme => ({
         zIndex: 1
     },
     overlayTitle: {
-        fontSize: 52,
+        fontSize: 62,
         fontWeight: 700,
-        lineHeight: 1.5
+        lineHeight: 1.5,
+        marginBottom: 10
     },
     overlayDesc: {
-
+        fontSize: 22,
     },
     rightSideSection: {
         flex: 1,
@@ -137,8 +138,8 @@ class HomePage extends Component {
                 <div className={classes.leftSideSection}>
                     <img className={classes.overlayImage} src="https://picsum.photos/1920/1080"/>
                     <div className={classes.overlayContainer}>
-                        <h1 className={classes.overlayTitle}>Title Ipsum</h1>
-                        <div className={classes.overlayDesc}>Based on your the sports you've entered, we've supposed you'll like to play Tennis.Praesent sed placerat nisi.</div>
+                        <h1 className={classes.overlayTitle}>Sport for everyone.</h1>
+                        <div className={classes.overlayDesc}>Millions of sports. No credit card needed.</div>
                     </div>
                 </div>
                 <div className={classes.rightSideSection}>
