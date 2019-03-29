@@ -34,7 +34,7 @@ class HeaderNav extends Component {
                             noWrap
                             className={classes.toolbarTitle}
                         >
-                            Sports Discovery
+                            Sportify
                         </Typography>
                         <Button component={RouterLink} to="/">
                             Home
