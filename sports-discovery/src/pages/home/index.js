@@ -1,4 +1,9 @@
 import React, { Component } from 'react';
+import {
+    SelectValidator,
+    TextValidator,
+    ValidatorForm
+} from 'react-material-ui-form-validator';
 
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -9,9 +14,7 @@ import Grid from '@material-ui/core/Grid';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
-import Select from '@material-ui/core/Select';
 import { SportsSelector } from '../../components/sports-selector';
-import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
 
@@ -121,7 +124,7 @@ class HomePage extends Component {
         this.setState({ [name]: value });
     };
 
-    handleSignUp = () => {
+    handleSubmit = () => {
         this.setState({ loading: true });
 
         fetch(
@@ -187,88 +190,119 @@ class HomePage extends Component {
                         >
                             Discover a new sports
                         </Typography>
-                        <Grid container spacing={24}>
-                            <Grid item xs={12} lg={6}>
-                                <FormLabel component="legend">Age *</FormLabel>
-                                <TextField
-                                    id="age"
-                                    name="age"
-                                    value={this.state.age}
-                                    className={classes.fullWidth}
-                                    onChange={this.handleChange('age')}
-                                    type="number"
-                                />
-                            </Grid>
-                            <Grid item xs={12} lg={6}>
-                                <FormControl
-                                    component="fieldset"
-                                    className={classes.fullWidth}
-                                >
+                        <ValidatorForm
+                            ref="form"
+                            onSubmit={this.handleSubmit}
+                            onError={errors => console.log(errors)}
+                        >
+                            <Grid container spacing={24}>
+                                <Grid item xs={12} lg={6}>
                                     <FormLabel component="legend">
-                                        Gender *
+                                        Age *
                                     </FormLabel>
-                                    <Select
-                                        value={this.state.gender}
-                                        onChange={this.handleChange('gender')}
-                                        input={
-                                            <Input name="gender" id="gender" />
-                                        }
-                                    >
-                                        <MenuItem value={'female'}>
-                                            Female
-                                        </MenuItem>
-                                        <MenuItem value={'male'}>Male</MenuItem>
-                                    </Select>
-                                </FormControl>
-                            </Grid>
-                            <Grid item xs={12}>
-                                <SportsSelector
-                                    label="Sports you like"
-                                    onChange={this.handleSportsChange(
-                                        'likedSports'
-                                    )}
-                                />
-                            </Grid>
-                            <Grid item xs={12}>
-                                <InputLabel htmlFor="location">
-                                    Location *
-                                </InputLabel>
-                                <GMapsAutocomplete
-                                    id="location"
-                                    name="location"
-                                    placeholder=""
-                                    onSuggestionSelected={this.onLocationChange}
-                                />
-                            </Grid>
-
-                            <Grid item xs={12}>
-                                <Button
-                                    variant="contained"
-                                    color="primary"
-                                    className={classes.button}
-                                    onClick={this.handleSignUp}
-                                    disabled={loading}
-                                >
-                                    Discover
-                                </Button>
-                                {loading && (
-                                    <CircularProgress
-                                        size={28}
-                                        className={classes.fabProgress}
+                                    <TextValidator
+                                        id="age"
+                                        name="age"
+                                        validators={[
+                                            'required',
+                                            'minNumber:1',
+                                            'maxNumber:120'
+                                        ]}
+                                        errorMessages={[
+                                            'this field is required',
+                                            'must be greater than 0',
+                                            'must be smaller than 121'
+                                        ]}
+                                        value={this.state.age}
+                                        className={classes.fullWidth}
+                                        onChange={this.handleChange('age')}
+                                        type="number"
                                     />
-                                )}
+                                </Grid>
+                                <Grid item xs={12} lg={6}>
+                                    <FormControl
+                                        component="fieldset"
+                                        className={classes.fullWidth}
+                                    >
+                                        <FormLabel component="legend">
+                                            Gender *
+                                        </FormLabel>
+                                        <SelectValidator
+                                            value={this.state.gender}
+                                            validators={['required']}
+                                            errorMessages={[
+                                                'this field is required'
+                                            ]}
+                                            onChange={this.handleChange(
+                                                'gender'
+                                            )}
+                                            input={
+                                                <Input
+                                                    name="gender"
+                                                    id="gender"
+                                                />
+                                            }
+                                        >
+                                            <MenuItem value={'female'}>
+                                                Female
+                                            </MenuItem>
+                                            <MenuItem value={'male'}>
+                                                Male
+                                            </MenuItem>
+                                        </SelectValidator>
+                                    </FormControl>
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <SportsSelector
+                                        label="Sports you like"
+                                        onChange={this.handleSportsChange(
+                                            'likedSports'
+                                        )}
+                                    />
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <InputLabel htmlFor="location">
+                                        Location *
+                                    </InputLabel>
+                                    <GMapsAutocomplete
+                                        id="location"
+                                        name="location"
+                                        placeholder=""
+                                        onSuggestionSelected={
+                                            this.onLocationChange
+                                        }
+                                    />
+                                </Grid>
+
+                                <Grid item xs={12}>
+                                    <Button
+                                        variant="contained"
+                                        color="primary"
+                                        className={classes.button}
+                                        type="submit"
+                                        disabled={loading}
+                                    >
+                                        Discover
+                                    </Button>
+                                    {loading && (
+                                        <CircularProgress
+                                            size={28}
+                                            className={classes.fabProgress}
+                                        />
+                                    )}
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <Typography
+                                        component="h2"
+                                        variant="h5"
+                                        align="right"
+                                        className={classes.powered}
+                                    >
+                                        Powered by AI
+                                    </Typography>
+                                </Grid>
                             </Grid>
-                            <Grid item xs={12}>
-                                <Typography
-                                    component="h2"
-                                    variant="h5"
-                                    align="right"
-                                    className={classes.powered}
-                                >
-                                    Powered by AI
-                                </Typography>
-                            </Grid>
-                        </Grid>
+                        </ValidatorForm>
                     </div>
                     <div />
                 </div>

@@ -3,7 +3,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Paper from '@material-ui/core/Paper';
 import PropTypes from 'prop-types';
 import React from 'react';
-import TextField from '@material-ui/core/TextField';
+import { TextValidator } from 'react-material-ui-form-validator';
 import match from 'autosuggest-highlight/match';
 import parse from 'autosuggest-highlight/parse';
 import { withStyles } from '@material-ui/core/styles';
@@ -12,11 +12,13 @@ function renderInput(inputProps) {
     const { classes, autoFocus, value, ref, ...other } = inputProps;
 
     return (
-        <TextField
+        <TextValidator
             autoFocus={autoFocus}
             className={classes.textField}
             value={value}
             inputRef={ref}
+            validators={['required']}
+            errorMessages={['this field is required']}
             InputProps={{
                 classes: {
                     input: classes.input
@@ -179,12 +181,14 @@ class GMapsAutocomplete extends React.Component {
         event,
         { suggestion, suggestionValue, suggestionIndex, sectionIndex, method }
     ) => {
-        
-        this.geocoder.geocode({'placeId': suggestion.place_id}, (results, status) => {
-            if (status === 'OK') {
-                this.props.onSuggestionSelected(results[0]);
-          }
-        });
+        this.geocoder.geocode(
+            { placeId: suggestion.place_id },
+            (results, status) => {
+                if (status === 'OK') {
+                    this.props.onSuggestionSelected(results[0]);
+                }
+            }
+        );
     };
 
     render() {
