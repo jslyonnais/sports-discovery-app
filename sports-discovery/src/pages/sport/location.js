@@ -51,9 +51,7 @@ const styles = theme => ({
         lineHeight: 1.5,
         textTransform: 'capitalize'
     },
-    overlayDesc: {
-
-    },
+    overlayDesc: {},
     rightSideSection: {
         flex: 1,
         position: 'relative',
@@ -62,7 +60,7 @@ const styles = theme => ({
         alignItems: 'center'
     },
     gearList: {
-        display: 'flex', 
+        display: 'flex',
         justifyContent: 'space-between'
     },
     gear: {
@@ -115,14 +113,12 @@ const styles = theme => ({
         display: 'flex',
         alignItems: 'center'
     },
-    locationList: {
-
-    },
-    location: {
+    locationList: {},
+    locationItem: {
         textAlign: 'left',
         borderBottom: '1px solid #e0e0e0',
-        paddingBottom: theme.spacing.unit*2,
-        paddingTop: theme.spacing.unit *2,
+        paddingBottom: theme.spacing.unit * 2,
+        paddingTop: theme.spacing.unit * 2,
         display: 'flex',
         '&:last-child': {
             border: 0
@@ -134,9 +130,7 @@ const styles = theme => ({
         fontWeight: 700,
         marginBottom: theme.spacing.unit
     },
-    locationAddress: {
-
-    },
+    locationAddress: {},
     locationContainer: {
         marginLeft: theme.spacing.unit
     },
@@ -145,7 +139,7 @@ const styles = theme => ({
         color: '#48bbff',
         textDecoration: 'underline',
         fontWeight: 700,
-        cursor: 'pointer',
+        cursor: 'pointer'
     }
 });
 
@@ -153,36 +147,104 @@ export class SportLocationPage extends Component {
     constructor(props) {
         super(props);
 
-        this.state = { places: [] }
+        this.state = { places: [] };
     }
 
     componentDidMount() {
-        const { match: { params } } = this.props;
+        const {
+            match: { params }
+        } = this.props;
         const location = JSON.parse(localStorage.getItem('location'));
         const self = this;
 
-        fetch(`https://sportplaces.api.decathlon.com/api/v1/places?origin=${location.lng},${location.lat}&radius=99&sports=${params.sportId}`)
+        fetch(
+            `https://sportplaces.api.decathlon.com/api/v1/places?origin=${
+                location.lng
+            },${location.lat}&radius=99&sports=${params.sportId}`
+        )
             .then(response => response.json())
-            .then(result => { self.setState({ places: result.data.features }) });
+            .then(result => {
+                self.setState({ places: result.data.features });
+            });
     }
 
     render() {
-        const { match: { params }, classes } = this.props;
+        const { classes } = this.props;
         const location = JSON.parse(localStorage.getItem('location'));
+        const locationId = localStorage.getItem('locationId');
+        const locationName = localStorage.getItem('locationName');
 
-        const locationMarker = <LocationIcon fontSize="large" color="primary" lat={location.lat} lng={location.lng} text="You are here" />
+        const locationMarker = (
+            <LocationIcon
+                fontSize="large"
+                color="primary"
+                lat={location.lat}
+                lng={location.lng}
+                text="You are here"
+            />
+        );
         const placeMarkers = this.state.places.map(place => {
             const { name, uuid } = place.properties;
             const coords = place.geometry.coordinates;
-            return <LocationIcon key={uuid} fontSize="large" color="secondary" lat={coords[1]} lng={coords[0]} text={name} />
+            return (
+                <LocationIcon
+                    key={uuid}
+                    fontSize="large"
+                    color="secondary"
+                    lat={coords[1]}
+                    lng={coords[0]}
+                    text={name}
+                />
+            );
         });
-        
+
+        const placeDescriptions = this.state.places.map((place, i) => {
+            const {
+                name,
+                address_components,
+                google_place_id
+            } = place.properties;
+
+            return (
+                <div key={i} className={classes.locationItem}>
+                    <Icon className={classes.icon}>location_on</Icon>
+                    <div className={classes.locationContainer}>
+                        <span className={classes.locationTitle}>{name}</span>
+                        <span className={classes.locationAddress}>
+                            {address_components.address},{' '}
+                            {address_components.city},{' '}
+                            {address_components.province},{' '}
+                            {address_components.country}
+                        </span>
+                        <span className={classes.locationLink}>
+                            <a
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                href={`https://www.google.com/maps/dir/?api=1&origin=${locationName}&origin_place_id=${locationId}&destination=${name}&destination_place_id=${google_place_id}`}
+                            >
+                                Get directions
+                            </a>
+                        </span>
+                    </div>
+                </div>
+            );
+        });
+
         return (
             <>
                 <div className={classes.leftSideSection}>
-                    <div style={{ height: '100%', width: '100%', position: 'absolute', top: 0 }}>
+                    <div
+                        style={{
+                            height: '100%',
+                            width: '100%',
+                            position: 'absolute',
+                            top: 0
+                        }}
+                    >
                         <GoogleMapReact
-                            bootstrapURLKeys={{ key: "AIzaSyADZ6SKjElEyIdZ7og8PzLEBZ6zLOAtPz8" }}
+                            bootstrapURLKeys={{
+                                key: 'AIzaSyADZ6SKjElEyIdZ7og8PzLEBZ6zLOAtPz8'
+                            }}
                             defaultCenter={location}
                             defaultZoom={11}
                         >
@@ -193,58 +255,19 @@ export class SportLocationPage extends Component {
                 </div>
                 <div className={classes.rightSideSection}>
                     <div className={classes.paper}>
-                        <Typography 
+                        <Typography
                             component="h2"
-                            variant="h4" 
+                            variant="h4"
                             align="left"
                             className={classes.title}
                             gutterBottom
                         >
-                            <span className={classes.sub}>Location near</span> Montreal, QC, Canada
+                            <span className={classes.sub}>Location near</span>{' '}
+                            Montreal, QC, Canada
                         </Typography>
 
-
                         <div className={classes.locationList}>
-                            <div className={classes.location}>
-                                <Icon className={classes.icon}>
-                                    location_on
-                                </Icon>
-                                <div className={classes.locationContainer}>
-                                    <span className={classes.locationTitle}>Lorem Ipsum</span>
-                                    <span className={classes.locationAddress}>1700 Saint-Patrick St, Montreal, QC H3K 1A7</span>
-                                    <span className={classes.locationLink}>Get directions</span>
-                                </div>
-                            </div>
-                            <div className={classes.location}>
-                                <Icon className={classes.icon}>
-                                    location_on
-                                </Icon>
-                                <div className={classes.locationContainer}>
-                                    <span className={classes.locationTitle}>Lorem Ipsum</span>
-                                    <span className={classes.locationAddress}>1700 Saint-Patrick St, Montreal, QC H3K 1A7</span>
-                                    <span className={classes.locationLink}>Get directions</span>
-                                </div>
-                            </div>
-                            <div className={classes.location}>
-                                <Icon className={classes.icon}>
-                                    location_on
-                                </Icon>
-                                <div className={classes.locationContainer}>
-                                    <span className={classes.locationTitle}>Lorem Ipsum</span>
-                                    <span className={classes.locationAddress}>1700 Saint-Patrick St, Montreal, QC H3K 1A7</span>
-                                    <span className={classes.locationLink}>Get directions</span>
-                                </div>
-                            </div>
-                            <div className={classes.location}>
-                                <Icon className={classes.icon}>
-                                    location_on
-                                </Icon>
-                                <div className={classes.locationContainer}>
-                                    <span className={classes.locationTitle}>Lorem Ipsum</span>
-                                    <span className={classes.locationAddress}>1700 Saint-Patrick St, Montreal, QC H3K 1A7</span>
-                                    <span className={classes.locationLink}>Get directions</span>
-                                </div>
-                            </div>
+                            {placeDescriptions}
                         </div>
                     </div>
                 </div>
