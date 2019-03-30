@@ -2,8 +2,10 @@ import React, { Component } from 'react';
 
 import GoogleMapReact from 'google-map-react';
 import Icon from '@material-ui/core/Icon';
+import { Link } from 'react-router-dom';
 import LocationIcon from '@material-ui/icons/LocationOn';
 import Typography from '@material-ui/core/Typography';
+import { sportsData } from './sportsData.js';
 import withStyles from '@material-ui/core/styles/withStyles';
 
 const styles = theme => ({
@@ -140,6 +142,16 @@ const styles = theme => ({
         textDecoration: 'underline',
         fontWeight: 700,
         cursor: 'pointer'
+    },
+    link: {
+        color: '#48bbff',
+        textDecoration: 'underline',
+        fontWeight: 700,
+        display: 'inline-block',
+        marginLeft: theme.spacing.unit,
+        paddingLeft: theme.spacing.unit,
+        cursor: 'pointer',
+        lineHeight: 1
     }
 });
 
@@ -169,7 +181,10 @@ export class SportLocationPage extends Component {
     }
 
     render() {
-        const { classes } = this.props;
+        const {
+            match: { params },
+            classes
+        } = this.props;
         const location = JSON.parse(localStorage.getItem('location'));
         const locationId = localStorage.getItem('locationId');
         const locationName = localStorage.getItem('locationName');
@@ -230,6 +245,10 @@ export class SportLocationPage extends Component {
             );
         });
 
+        const sport = sportsData.find(
+            sport => sport.id === parseInt(params.sportId)
+        );
+
         return (
             <>
                 <div className={classes.leftSideSection}>
@@ -258,17 +277,23 @@ export class SportLocationPage extends Component {
                         <Typography
                             component="h2"
                             variant="h4"
-                            align="left"
+                            align="center"
                             className={classes.title}
                             gutterBottom
                         >
                             <span className={classes.sub}>Location near</span>{' '}
-                            Montreal, QC, Canada
+                            {locationName}
                         </Typography>
 
                         <div className={classes.locationList}>
                             {placeDescriptions}
                         </div>
+                        <Link
+                            className={classes.link}
+                            to={`/sports/${params.sportId}`}
+                        >
+                            Back to {sport.title}
+                        </Link>
                     </div>
                 </div>
             </>
