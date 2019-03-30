@@ -112,7 +112,7 @@ class HomePage extends Component {
     handleSignUp = () => {
         this.setState({ loading: true });
         
-        fetch("http://hackathon-amilia.azurewebsites.net/api/compute?code=AtE0Ud2/KSHmoYsIiGsi9KNsdGY1zBaKae7xCOKhVZ2wV7y/UPjSDA==", {
+        fetch("https://sportsdiscovery.azurewebsites.net/api/Compute?code=1jBYduutNJHG/wafTLX7J9H7Hx3etlVVlAY4BpuT21ESw1btCwkkGg==", {
             method: "POST",
             cache: "no-cache",
             headers: {
@@ -127,13 +127,13 @@ class HomePage extends Component {
                 }
             ),
         })
-        // .then(result => result.json())
+        .then(result => result.json())
         .then(
           (result) => {
             this.setState({
                 loading: false
             });
-            const sportId = 89;
+            const sportId = result;
             this.props.history.push(`/sports/${sportId}`);
           })
     };
