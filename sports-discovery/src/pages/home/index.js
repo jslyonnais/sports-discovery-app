@@ -161,22 +161,10 @@ class HomePage extends Component {
                         align="center"
                         className={classes.title}
                     >
-                        Sign Up to discover new sports
+                        Discover a new sports
                     </Typography>
                     <Grid container spacing={24}>
                         <Grid item xs={12} lg={6}>
-                            <TextField
-                                required
-                                id="fullName"
-                                name="fullName"
-                                label="Name"
-                                fullWidth
-                                autoComplete="fname"
-                                value={this.state.fullName}
-                                onChange={this.handleChange('fullName')}
-                            />
-                        </Grid>
-                        <Grid item xs={12} lg={2}>
                             <TextField
                                 required
                                 id="age"
@@ -188,7 +176,7 @@ class HomePage extends Component {
                                 type="number"
                             />
                         </Grid>
-                        <Grid item xs={12} lg={4}>
+                        <Grid item xs={12} lg={6}>
                             <FormControl
                                 component="fieldset"
                                 className={classes.fullWidth}
@@ -230,7 +218,7 @@ class HomePage extends Component {
                                 onClick={this.handleSignUp}
                                 disabled={loading}
                                 >
-                                Sign Up
+                                Discover
                             </Button>
                             {loading && <CircularProgress size={28} className={classes.fabProgress} />}
                         </Grid>
