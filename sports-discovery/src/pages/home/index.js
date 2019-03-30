@@ -114,7 +114,6 @@ class HomePage extends Component {
         
         fetch("http://hackathon-amilia.azurewebsites.net/api/compute?code=AtE0Ud2/KSHmoYsIiGsi9KNsdGY1zBaKae7xCOKhVZ2wV7y/UPjSDA==", {
             method: "POST",
-            mode:"no-cors",
             cache: "no-cache",
             headers: {
                 "Content-Type": "application/json",
