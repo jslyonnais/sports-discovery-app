@@ -114,7 +114,6 @@ class HomePage extends Component {
         
         fetch("https://sportsdiscovery.azurewebsites.net/api/Compute?code=1jBYduutNJHG/wafTLX7J9H7Hx3etlVVlAY4BpuT21ESw1btCwkkGg==", {
             method: "POST",
-            mode:"no-cors",
             cache: "no-cache",
             headers: {
                 "Content-Type": "application/json",
