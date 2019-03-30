@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import Icon from '@material-ui/core/Icon';
 import { Link } from 'react-router-dom';
 import Typography from '@material-ui/core/Typography';
-import { sportsData } from './sportsData.js'
+import { sportsData } from './sportsData.js';
 import withStyles from '@material-ui/core/styles/withStyles';
 
 const styles = theme => ({
@@ -45,9 +45,7 @@ const styles = theme => ({
         lineHeight: 1,
         textTransform: 'capitalize'
     },
-    overlayDesc: {
-
-    },
+    overlayDesc: {},
     rightSideSection: {
         flex: 1,
         position: 'relative',
@@ -56,7 +54,7 @@ const styles = theme => ({
         alignItems: 'center'
     },
     gearList: {
-        display: 'flex', 
+        display: 'flex',
         justifyContent: 'space-between'
     },
     gear: {
@@ -129,40 +127,37 @@ const styles = theme => ({
 });
 
 export class SportPage extends Component {
-
     render() {
-
-        const { match: { params }, classes } = this.props;
-        const sport = sportsData.find(sport=>sport.id === parseInt(params.sportId));
+        const {
+            match: { params },
+            classes
+        } = this.props;
+        const sport = sportsData.find(
+            sport => sport.id === parseInt(params.sportId)
+        );
 
         return (
             <>
                 <div className={classes.leftSideSection}>
-                    <img className={classes.overlayImage} src={sport.image}/>
+                    <img
+                        className={classes.overlayImage}
+                        src={sport.image}
+                        alt={sport.title}
+                    />
                     <div className={classes.overlayContainer}>
                         <h1 className={classes.overlayTitle}>{sport.title}</h1>
-                        <div className={classes.overlayDesc}>Based on your choices of sports, <br/>our genius AI has found out that you would like to play to {sport.title}.</div>
+                        <div className={classes.overlayDesc}>
+                            Based on your choices of sports, <br />
+                            our AI has found out that you would like{' '}
+                            {sport.title}.
+                        </div>
                     </div>
                 </div>
                 <div className={classes.rightSideSection}>
-                    <div className={classes.controls}>
-                        <span className={classes.arrowPrev}>
-                            <Icon className={classes.icon}>
-                                arrow_back_ios
-                            </Icon>
-                            Prev
-                        </span>
-                        <span className={classes.arrowNext}>
-                            Next
-                            <Icon className={classes.icon}>
-                                arrow_forward_ios
-                            </Icon>
-                        </span>
-                    </div>
                     <div className={classes.paper}>
-                        <Typography 
+                        <Typography
                             component="h2"
-                            variant="h3" 
+                            variant="h3"
                             align="center"
                             className={classes.title}
                             gutterBottom
@@ -173,38 +168,58 @@ export class SportPage extends Component {
                             {sport.description}
                         </Typography>
 
-                        {(sport.gear)?
-                        <>
-                            <span className={classes.bump}>
-                                <Typography 
-                                    component="h2"
-                                    variant="h5" 
-                                    align="center"
-                                    className={classes.title}
-                                    gutterBottom
-                                >
-                                    Suggested gear
-                                    <span className={classes.by}>by Decathlon</span>
-                                </Typography>
-                            </span>
-                            <div className={classes.gearList}>
-                                {sport.gear.map(x => {
-                                    return (
-                                        <div key={x.title} className={classes.gear}>
-                                            <img className={classes.gearImage} src={x.image} />
-                                            <span className={classes.gearTitle}>{x.title}</span>
-                                        </div>
-                                    )
-                                })}
-                            </div>
-                        </>
-                        : null }
+                        {sport.gear ? (
+                            <>
+                                <span className={classes.bump}>
+                                    <Typography
+                                        component="h2"
+                                        variant="h5"
+                                        align="center"
+                                        className={classes.title}
+                                        gutterBottom
+                                    >
+                                        Suggested gear
+                                        <span className={classes.by}>
+                                            by Decathlon
+                                        </span>
+                                    </Typography>
+                                </span>
+                                <div className={classes.gearList}>
+                                    {sport.gear.map(x => {
+                                        return (
+                                            <div
+                                                key={x.title}
+                                                className={classes.gear}
+                                            >
+                                                <img
+                                                    className={
+                                                        classes.gearImage
+                                                    }
+                                                    src={x.image}
+                                                    alt={x.title}
+                                                />
+                                                <span
+                                                    className={
+                                                        classes.gearTitle
+                                                    }
+                                                >
+                                                    {x.title}
+                                                </span>
+                                            </div>
+                                        );
+                                    })}
+                                </div>
+                            </>
+                        ) : null}
 
                         <div className={classes.location}>
-                            <Icon className={classes.icon}>
-                                location_on
-                            </Icon>
-                            <Link className={classes.link} to={`/sports/${params.sportId}/location`} >Discover where to play</Link>
+                            <Icon className={classes.icon}>location_on</Icon>
+                            <Link
+                                className={classes.link}
+                                to={`/sports/${params.sportId}/location`}
+                            >
+                                Discover where to play
+                            </Link>
                         </div>
                     </div>
                 </div>
