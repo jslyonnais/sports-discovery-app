@@ -262,7 +262,7 @@ export class SportLocationPage extends Component {
                     >
                         <GoogleMapReact
                             bootstrapURLKeys={{
-                                key: 'AIzaSyADZ6SKjElEyIdZ7og8PzLEBZ6zLOAtPz8'
+                                key: process.env.REACT_APP_GOOGLE_KEY
                             }}
                             defaultCenter={location}
                             defaultZoom={11}
