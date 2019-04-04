@@ -32,10 +32,10 @@ const styles = theme => ({
     },
     powered: {
         display: 'block',
-        color: '#4f4f4f',
+        color: '#ccc',
         fontWeight: 700,
         fontStyle: 'italic',
-        marginTop: theme.spacing.unit * 6
+        marginTop: theme.spacing.unit
     },
     fullWidth: {
         width: '100%'
@@ -293,8 +293,7 @@ class HomePage extends Component {
                                 </Grid>
                                 <Grid item xs={12}>
                                     <Typography
-                                        component="h2"
-                                        variant="h5"
+                                        variant="h8"
                                         align="right"
                                         className={classes.powered}
                                     >
